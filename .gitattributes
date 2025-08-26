@@ -1,0 +1,35 @@
+* text=auto eol=lf
+
+# Ignorar en exportaciones (deploy)
+.github export-ignore
+.gitignore export-ignore
+.gitattributes export-ignore
+docker-compose.yml export-ignore
+docker-compose.override.yml export-ignore
+
+# Documentación solo local
+/docs export-ignore
+README.md export-ignore
+
+# Tests fuera del deploy
+/backend/tests export-ignore
+/frontend/tests export-ignore
+
+# Archivos de configuración
+/backend/phpunit.xml export-ignore
+/frontend/jest.config.js export-ignore
+
+# Archivos binarios
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mp4 binary
+*.mp3 binary
+*.zip binary
+*.gz binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
