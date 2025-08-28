@@ -34,3 +34,21 @@ export interface APIResponse<T> {
     count?: number
     message?: string
 }
+
+export interface ExerciseSearchResult {
+    workout_id: string
+    workout_name: string
+    workout_type: Workout['type']
+    exercise: Exercise
+}
+
+export interface ExerciseAPIResponse {
+    success: boolean
+    workout_name?: string
+    exercise?: Exercise
+    exercises?: Exercise[]
+    search_term?: string
+    results?: ExerciseSearchResult[]
+    count?: number
+    message?: string
+}
