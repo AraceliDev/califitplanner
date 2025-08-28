@@ -14,10 +14,19 @@ class WorkoutSeeder extends Seeder
     public function run(): void
     {
         // Cargar datos de archivos externos
-        $pushWorkouts = include database_path('data/push_workouts.php');
-        $pullWorkouts = include database_path('data/pull_workouts.php');
+        $pushPrincipianteWorkouts = include database_path('data/push_principiante.php');
+        $pullPrincipianteWorkouts = include database_path('data/pull_principiante.php');
+        $fullPrincipianteWorkouts = include database_path('data/fullBody_principiante.php');
+        $corePrincipianteWorkouts = include database_path('data/core_principiante.php');
+        $lowerPrincipianteWorkouts = include database_path('data/lowerBody_principiante.php');
+        $upperPrincipianteWorkouts = include database_path('data/upperBody_principiante.php');
+
         // Insertar todos los workouts
-        Workout::insert($pushWorkouts);
-        Workout::insert($pullWorkouts);
+        Workout::insert($pushPrincipianteWorkouts);
+        Workout::insert($pullPrincipianteWorkouts);
+        Workout::insert($fullPrincipianteWorkouts);
+        Workout::insert($corePrincipianteWorkouts);
+        Workout::insert($lowerPrincipianteWorkouts);
+        Workout::insert($upperPrincipianteWorkouts);
     }
 }

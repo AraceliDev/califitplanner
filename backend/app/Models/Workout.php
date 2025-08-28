@@ -13,6 +13,7 @@ class Workout extends Model
     protected $fillable = [
         'type',
         'name',
+        'level',
         'description',
         'exercises'
     ];
