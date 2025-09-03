@@ -87,7 +87,6 @@ volumes:
   mongodb_data:
   portainer_data:
 
-
 networks:
   califit_network:
     driver: bridge
