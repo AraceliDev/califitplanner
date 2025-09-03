@@ -1,31 +1,28 @@
-import React, { useEffect } from 'react'
-import useWorkoutStore from './stores/workoutStore'
-import TestWorkout from './components/TestWorkout'
-import TestExercise from './components/TestExercise'
+import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import Workouts from './pages/Workouts'
+import Rutinas from './pages/Rutinas'
+import Recursos from './pages/Recursos'
+import TestSimple from './pages/TestSimple'
+import Header from './components/layout/Header'
+import Footer from './components/layout/Footer'
 
 function App() {
-    const { fetchWorkouts } = useWorkoutStore()
-
-    useEffect(() => {
-        fetchWorkouts() // Cargar workouts al iniciar
-    }, [fetchWorkouts])
-
-    return (
-        <div className="App">
-            <h1 className="text-3xl font-bold text-center p-4">
-                CaliFit Planner - TypeScript Test
-            </h1>
-
-            <div className="grid lg:grid-cols-2 gap-6 p-4">
-                <div>
-                    <TestWorkout />
-                </div>
-                <div>
-                    <TestExercise />
-                </div>
-            </div>
-        </div>
-    )
+  return (
+    <BrowserRouter>
+    <Header /> 
+        <Routes>
+          <Route path="/" element={<TestSimple />} />
+          <Route path="/test" element={<TestSimple />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/workouts" element={<Workouts />} />
+          <Route path="/rutinas" element={<Rutinas />} />
+          <Route path="/recursos" element={<Recursos />} />
+        </Routes>
+    <Footer />  
+    </BrowserRouter>
+  )
 }
 
 export default App

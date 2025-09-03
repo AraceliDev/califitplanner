@@ -1,0 +1,33 @@
+import { Button as HeroButton } from "@heroui/react";
+
+function Button({ type = "primario", text, onClick, extraClasses = "" }) {
+  let variant = "solid";
+  let baseClasses = "bg-[#2D3E27] text-white hover:bg-[#264026]";
+
+  switch (type) {
+    case "secundario":
+      variant = "bordered";
+      baseClasses =
+        "bg-transparent text-[#141C12] border border-[#141C12] hover:bg-[#141C12] hover:text-white";
+      break;
+    case "destacado":
+      variant = "shadow";
+      baseClasses = "bg-[#2D3E27] text-white hover:bg-[#264026] shadow-lg";
+      break;
+    case "primario":
+    default:
+      variant = "solid";
+      baseClasses = "bg-[#2D3E27] text-white hover:bg-[#264026]";
+  }
+
+  // Combinar clases base con clases extra
+  const finalClasses = extraClasses ? `${baseClasses} ${extraClasses}` : baseClasses;
+
+  return (
+    <HeroButton variant={variant} className={finalClasses} onClick={onClick}>
+      {text}
+    </HeroButton>
+  );
+}
+
+export default Button;

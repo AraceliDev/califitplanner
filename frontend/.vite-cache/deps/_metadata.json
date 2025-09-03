@@ -1,52 +1,82 @@
 {
-  "hash": "2792d63c",
-  "configHash": "3d8de66f",
-  "lockfileHash": "a42eb93d",
-  "browserHash": "9def52bd",
+  "hash": "b146050a",
+  "configHash": "7c059283",
+  "lockfileHash": "b4159667",
+  "browserHash": "7ff133a0",
   "optimized": {
     "react": {
       "src": "../../node_modules/react/index.js",
       "file": "react.js",
-      "fileHash": "1c122030",
+      "fileHash": "2cf88608",
       "needsInterop": true
     },
     "react-dom": {
       "src": "../../node_modules/react-dom/index.js",
       "file": "react-dom.js",
-      "fileHash": "40f108b7",
+      "fileHash": "8cbabab5",
       "needsInterop": true
     },
     "react/jsx-dev-runtime": {
       "src": "../../node_modules/react/jsx-dev-runtime.js",
       "file": "react_jsx-dev-runtime.js",
-      "fileHash": "ee7b015e",
+      "fileHash": "9b17f4d2",
       "needsInterop": true
     },
     "react/jsx-runtime": {
       "src": "../../node_modules/react/jsx-runtime.js",
       "file": "react_jsx-runtime.js",
-      "fileHash": "b605dfd6",
+      "fileHash": "644fb416",
       "needsInterop": true
+    },
+    "@heroui/image": {
+      "src": "../../node_modules/@heroui/image/dist/index.mjs",
+      "file": "@heroui_image.js",
+      "fileHash": "4ef52086",
+      "needsInterop": false
+    },
+    "@heroui/react": {
+      "src": "../../node_modules/@heroui/react/dist/index.mjs",
+      "file": "@heroui_react.js",
+      "fileHash": "8efc72db",
+      "needsInterop": false
     },
     "react-dom/client": {
       "src": "../../node_modules/react-dom/client.js",
       "file": "react-dom_client.js",
-      "fileHash": "c91d94a3",
+      "fileHash": "47217698",
       "needsInterop": true
     },
-    "zustand": {
-      "src": "../../node_modules/zustand/esm/index.mjs",
-      "file": "zustand.js",
-      "fileHash": "96df59ec",
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.mjs",
+      "file": "react-router-dom.js",
+      "fileHash": "c03e7171",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-IMO6PYY2": {
-      "file": "chunk-IMO6PYY2.js"
+    "es-624JIOTX": {
+      "file": "es-624JIOTX.js"
     },
-    "chunk-WYQRYOQT": {
-      "file": "chunk-WYQRYOQT.js"
+    "dist-TL52AP47": {
+      "file": "dist-TL52AP47.js"
+    },
+    "src-UW24ZMRV-R3NDMKWL": {
+      "file": "src-UW24ZMRV-R3NDMKWL.js"
+    },
+    "chunk-WQLVAELE": {
+      "file": "chunk-WQLVAELE.js"
+    },
+    "chunk-Q664B5KH": {
+      "file": "chunk-Q664B5KH.js"
+    },
+    "chunk-E2MTKLI5": {
+      "file": "chunk-E2MTKLI5.js"
+    },
+    "chunk-WB3YEMD6": {
+      "file": "chunk-WB3YEMD6.js"
+    },
+    "chunk-H3AANLML": {
+      "file": "chunk-H3AANLML.js"
     }
   }
 }
