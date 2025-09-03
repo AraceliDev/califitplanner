@@ -1,7 +1,7 @@
 import { Image } from "@heroui/image";
 import Button from "@/components/common/Button";
 import Carousel from "@/components/common/Carousel";
-import CustomSelect from "@/components/common/CustomSelect ";
+import CustomSelect from "@/components/common/CustomSelect";
 
 function Home() {
     const handleCreateRoutine = () => {
