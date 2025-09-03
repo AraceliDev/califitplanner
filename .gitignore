@@ -46,3 +46,4 @@
 .DS_Store
 Thumbs.db
 frontend/.vite-cache/
+frontend/node_modules/
