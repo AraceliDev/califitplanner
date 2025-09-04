@@ -75,7 +75,7 @@ function Home() {
                             onClick={handleCreateRoutine}
                             text="Crear rutina"
                             extraClasses="mt-6"
-                        />
+                        /> 
                         <Button
                             type="secundario"
                             onClick={handleWorkouts}

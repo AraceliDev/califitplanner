@@ -4,7 +4,7 @@ return [
         'type' => 'upper-body',
         'name' => 'Upper Body',
         'level' => 'principiante',
-        'description' => 'Rutina completa de tren superior para principiantes, combinando movimientos de empuje y tracción',
+        'description' => 'Tonifica brazos, hombros y pecho',
         'exercises' => [
             [
                 'id' => 1,

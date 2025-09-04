@@ -4,7 +4,7 @@ return [
         'type' => 'pull',
         'name' => 'Pull Day',
         'level' => 'principiante',
-        'description' => 'Rutina básica de tracción para principiantes enfocada en desarrollar fuerza de espalda y bíceps',
+        'description' => 'Fuerza que empuja tu cuerpo hacia el cambio',
         'exercises' => [
             [
                 'id' => 1,

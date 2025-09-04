@@ -4,7 +4,7 @@ return [
         'type' => 'core',
         'name' => 'Core Day',
         'level' => 'principiante',
-        'description' => 'Rutina de core para principiantes con ejercicios dinámicos y estáticos para fortalecer toda la musculatura abdominal',
+        'description' => 'Fortalece tu núcleo, controla tu fuerza',
         'exercises' => [
             [
                 'id' => 1,

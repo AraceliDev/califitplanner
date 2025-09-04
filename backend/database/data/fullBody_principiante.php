@@ -4,7 +4,7 @@ return [
         'type' => 'full-body',
         'name' => 'Full Body',
         'level' => 'principiante',
-        'description' => 'Rutina de cuerpo completo para principiantes que combina ejercicios de piernas, empuje, tracción y core',
+        'description' => 'Activa todo tu cuerpo, maximiza tu energía',
         'exercises' => [
             [
                 'id' => 1,

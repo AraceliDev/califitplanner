@@ -1,18 +1,24 @@
+import { useEffect } from "react";
+import WorkoutCard from "@/components/workout/WorkoutCard";
+import workoutStore from "@/stores/workoutStore"
+
 function Workouts() {
+    const { workouts, fetchWorkouts } = workoutStore();
+    useEffect(() => {
+        fetchWorkouts(); 
+    }, [fetchWorkouts]);
+
     return (
         <>
-            <div className="p-8">
-                <h1 className="text-3xl font-bold mb-6">Workouts</h1>
-                <div className="bg-gray-100 p-8 rounded">
-                    <p className="text-lg">
-                        Aquí verás todos los workouts disponibles
-                    </p>
-                    <p className="text-sm text-gray-600 mt-2">
-                        (Próximamente integraremos con los stores de Zustand)
-                    </p>
-                </div>
+            <div className="flex justify-center mt-10 mb-10  bg-amulet-100 px-4">
+            <div className="max-w-[1200px] w-full grid gap-6 :grid-cols-2 lg:grid-cols-3 place-items-center">
+                {workouts.map((workout) => (
+                    <WorkoutCard key={workout.id} workout={workout} />
+                ))}
+            </div>
             </div>
         </>
     )
 }
+
 export default Workouts

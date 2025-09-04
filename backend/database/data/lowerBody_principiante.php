@@ -4,7 +4,7 @@ return [
         'type' => 'lower-body',
         'name' => 'Lower Body',
         'level' => 'principiante',
-        'description' => 'Rutina de tren inferior para principiantes, enfocada en desarrollar fuerza y estabilidad en piernas y glúteos',
+        'description' => 'Potencia tus piernas, domina tu base',
         'exercises' => [
             [
                 'id' => 1,

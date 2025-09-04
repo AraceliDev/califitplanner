@@ -4,7 +4,7 @@ return [
         'type' => 'push',
         'name' => 'Push Day',
         'level' => 'principiante',
-        'description' => 'Rutina básica de empuje para principiantes',
+        'description' => 'Empuja tu cuerpo, eleva tu potencial',
         'exercises' => [
             [
                 'id' => 1,
