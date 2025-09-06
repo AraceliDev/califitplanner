@@ -23,8 +23,12 @@ body {
   color: var(--color-amulet-950); /* #141C12 */
 }
 
-/* Asegurar que toda la aplicación tenga el fondo correcto */
+/* toda la aplicación  el fondo correcto */
 #root {
   background-color: var(--color-amulet-100);
   min-height: 100vh;
 }
+
+/* * {
+  outline: 1px solid red;
+} */

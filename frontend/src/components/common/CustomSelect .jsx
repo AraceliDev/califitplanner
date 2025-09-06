@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 
-function CustomSelect({ 
-    options, 
-    placeholder = "Seleccionar...", 
-    onSelect, 
+function CustomSelect({
+    options,
+    placeholder = "Seleccionar...",
+    onSelect,
     className = "",
     disabled = false,
     value = ""
@@ -61,7 +61,7 @@ function CustomSelect({
                     bg-[#5D7A4F] 
                     border-2 
                     border-[#46603B] 
-                    text-white 
+                    text-amulet-100 
                     text-lg 
                     rounded-xl 
                     px-4 
@@ -75,8 +75,8 @@ function CustomSelect({
                     focus:outline-none 
                     focus:ring-2 
                     focus:ring-white/30
-                    ${disabled 
-                        ? 'opacity-50 cursor-not-allowed' 
+                    ${disabled
+                        ? 'opacity-50 cursor-not-allowed'
                         : 'hover:bg-[#46603B]'
                     }
                 `}
@@ -91,14 +91,14 @@ function CustomSelect({
                 <span className={selectedLabel ? "text-white" : "text-white/80"}>
                     {selectedLabel || placeholder}
                 </span>
-                <svg 
+                <svg
                     className={`
                         w-5 h-5 transition-transform duration-200 
                         ${isOpen ? 'rotate-180' : ''}
                         ${disabled ? 'opacity-50' : ''}
                     `}
-                    fill="none" 
-                    stroke="currentColor" 
+                    fill="none"
+                    stroke="currentColor"
                     viewBox="0 0 24 24"
                 >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -131,7 +131,7 @@ function CustomSelect({
                             className="
                                 px-4 
                                 py-3 
-                                text-white 
+                              text-amulet-100 
                                 cursor-pointer 
                                 hover:bg-[#5D7A4F] 
                                 hover:text-white
@@ -147,7 +147,7 @@ function CustomSelect({
                             {option.label}
                         </div>
                     ))}
-                    
+
                     {/* Si no hay opciones */}
                     {options.length === 0 && (
                         <div className="px-4 py-3 text-white/60 text-lg">

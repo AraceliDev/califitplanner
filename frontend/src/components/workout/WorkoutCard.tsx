@@ -16,7 +16,7 @@ function WorkoutCard({ workout }) {
                 <h1 className="text-tiny text-white/60 uppercase font-bold">
                     {workout.name}
                 </h1>
-                <h4 className="text-white font-medium text-large text-center">
+                <h4 className="text-amulet-100 font-medium text-large text-center">
                     {workout.description}
                 </h4>
             </CardHeader>

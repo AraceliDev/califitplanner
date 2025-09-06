@@ -8,18 +8,18 @@ function Navbar() {
         setIsMenuOpen(!isMenuOpen);
     };
     return (
-        <nav className="w-full bg-[#E6EBE0] text-[#141C12] py-4">
-            <div className="max-w-6xl mx-auto px-4">
+        <nav className="w-full bg-[#E6EBE0] text-[#141C12] py-2 md:py-3">
+            <div className="w-full px-4 sm:px-6 md:px-12">
                 <div className="flex justify-between items-center">
                     {/* Logo */}
                     <Link
                         to="/home"
-                        className="flex items-center space-x-2 hover:opacity-80 transition-opacity duration-200"
+                        className="flex items-center space-x-2"
                     >
                         <img
-                            src="/images/logoCalifitplanner.png"
+                            src="/images/logos/logoCalifit.svg"
                             alt="CaliFit Logo"
-                            className="h-12 w-12 sm:h-16 sm:w-16 lg:h-20 lg:w-20"
+                            className=""
                         />
                     </Link>
 
