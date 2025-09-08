@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { Image } from "@heroui/image";
-import Button from "@/components/common/Button";
 
 interface ExerciseCardProps {
     exercise: {
@@ -25,48 +24,33 @@ function ExerciseCard({ exercise, workoutId }: ExerciseCardProps) {
         console.log("ver detalles de un ejercicio");
         navigate(`/workouts/${currentWorkoutId}/exercises/${exercise.id}`);
     };
+    
     return (
-        <div className="flex flex-col items-center bg-white border border-amulet-200 rounded-lg shadow-sm md:flex-row md:max-w-xl hover:bg-amulet-50 transition-colors">
-            <Image
-                isZoomed
-                src={exercise.image || "/images/aros.jpg"}
-                alt={exercise.nombre}
-                className="object-cover w-full rounded-t-lg h-48 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
-            />
-            <div className="flex flex-col justify-between p-4 leading-normal w-full">
-                <h5 className="mb-2 text-xl font-bold tracking-tight text-amulet-950">
-                    {exercise.nombre}
-                </h5>
-                <p className="mb-3 font-normal text-amulet-700">
-                    {exercise.descripcion || 'Sin descripción disponible'}
-                </p>
-
-                {/* Información adicional del ejercicio */}
-                <div className="flex gap-4 text-sm text-amulet-600">
-                    {exercise.series && (
-                        <span className="font-medium">
-                            Series: <span className="text-amulet-800">{exercise.series}</span>
-                        </span>
-                    )}
-                    {exercise.repeticiones && (
-                        <span className="font-medium">
-                            repeticiones: <span className="text-amulet-800">{exercise.repeticiones}</span>
-                        </span>
-                    )}
-                    {exercise.descanso && (
-                        <span className="font-medium">
-                            Descanso: <span className="text-amulet-800">{exercise.descanso} seg</span>
-                        </span>
-                    )}
-                </div>
-                <Button
-                    type="secundario"
-                    onClick={handleExerciseDetails}
-                    text="Ver detalles"
-                    extraClasses="mt-8 self-start"
+        <div className="flex flex-col items-center bg-white border border-amulet-200 rounded-xl shadow-sm md:flex-row md:max-w-xl md:items-stretch hover:bg-amulet-50 transition-colors h-full">
+            <div className="w-full md:w-48 md:h-full flex-shrink-0">
+                <Image
+                    isZoomed
+                    src={exercise.image || "/images/aros.jpg"}
+                    alt={exercise.nombre}
+                    className="object-cover md:h-full rounded-t-xl md:rounded-none md:rounded-s-xl"
                 />
+            </div>
+            <div className="flex flex-col justify-center p-4 leading-normal w-full min-h-[180px]">
+                {/* Información adicional del ejercicio */}
+                <div className="text-left">                                          
+                    <h5 
+                        className="mb-2 text-lg md:text-xl font-bold tracking-tight text-amulet-950 cursor-pointer hover:text-amulet-700 transition-colors"
+                        onClick={handleExerciseDetails}
+                    >
+                        {exercise.nombre}
+                    </h5>
+                    <p className="font-normal text-amulet-700 text-sm md:text-base line-clamp-2 md:line-clamp-3">
+                        {exercise.descripcion || 'Sin descripción disponible'}
+                    </p>
+                </div>
             </div>
         </div>
     );
 }
+
 export default ExerciseCard

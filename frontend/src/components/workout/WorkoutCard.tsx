@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Card, CardHeader, Image } from "@heroui/react";
-import Button from "@/components/common/Button";
+import { Image } from "@heroui/react";
 
 function WorkoutCard({ workout }) {
     const navigate = useNavigate();
@@ -11,30 +10,26 @@ function WorkoutCard({ workout }) {
     };
 
     return (
-        <Card className="w-full max-w-sm h-[300px] transform transition-transform duration-300 hover:scale-105">
-            <CardHeader className="absolute z-10 top-1 flex-col">
-                <h1 className="text-tiny text-white/60 uppercase font-bold">
+        <div 
+            className="relative w-full max-w-sm h-[300px] transform transition-transform duration-300 hover:scale-105 cursor-pointer rounded-lg overflow-hidden shadow-lg"
+            onClick={handleWorkout}
+        >
+            <div className="absolute z-10 bottom-4 left-4 flex flex-col items-start">
+                <h1 className="text-tiny text-white/60 uppercase font-bold text-left">
                     {workout.name}
                 </h1>
-                <h4 className="text-amulet-100 font-medium text-large text-center">
+                <h4 className="text-amulet-100 font-medium text-large text-left">
                     {workout.description}
                 </h4>
-            </CardHeader>
-            {/* Botón centrado abajo */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10">
-                <Button
-                    type="primario"
-                    onClick={handleWorkout}
-                    text="Ver"
-                />
             </div>
+            
             <Image
                 removeWrapper
                 alt="Card background"
                 className="z-0 w-full h-full object-cover"
                 src={workout.image || "https://heroui.com/images/card-example-4.jpeg"}
             />
-        </Card>
+        </div>
     );
 }
 

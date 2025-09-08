@@ -7,7 +7,7 @@ interface WorkoutHeaderProps {
 
 function WorkoutHeader({ name, description, type, level }: WorkoutHeaderProps) {
     return (
-        <div className="text-center mb-16 py-8">
+        <div className="text-center mb-12 py-2">
             {/* Título con gradiente y efecto */}
             <h1 className="mb-6 text-4xl font-extrabold text-amulet-950 md:text-5xl lg:text-6xl leading-tight">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-amulet-600 via-amulet-500 to-amulet-400 animate-pulse">

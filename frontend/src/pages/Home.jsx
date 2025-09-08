@@ -61,16 +61,16 @@ function Home() {
     return (
         <>
             <div className="w-full overflow-x-hidden">
-                <div className="grid grid-cols-1 md:grid-cols-2 w-full py-2 md:py-3 bg-[#E6EBE0] text-amulet-100">
+                <div className="grid grid-cols-1 md:grid-cols-2 w-full py-2 md:py-2 bg-[#E6EBE0] text-amulet-100">
                     {/* FILA1: Columna izquierda */}
                     <div className="flex flex-col justify-start px-4 sm:px-6 md:px-12 py-16 md:py-24 bg-[#5D7A4F] max-h-[600px] md:max-h-[800px]">
-                        <h1 className="text-3xl leading-relaxed sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-8 md:mb-12">
+                        <h1 className="text-3xl leading-relaxed sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8">
                             CaliFit Planner: Comienza tu transformación
                         </h1>
-                        <p className="text-lg leading-relaxed sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl mt-3 mb-8 md:mb-12">
+                        <p className="text-lg leading-relaxed sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl mt-3 mb-6 md:mb-8">
                             Entrena sin límites, diseña tu rutina y supera cada desafío
                         </p>
-                        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mt-6">
+                        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mt-2">
                             <Button
                                 type="destacado"
                                 onClick={handleCreateRoutine}
@@ -97,11 +97,11 @@ function Home() {
                     </div>
                     {/* FILA2: Columna izquierda */}
                     <div className="flex flex-col justify-center px-4 sm:px-6 md:px-12 py-4 md:py-40 bg-[#E6EBE0] text-[#141C12]">
-                        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-center md:text-left ml-0 md:ml-8">¿Por qué Calistenia?</h1>
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 text-center md:text-left ml-0 md:ml-8">¿Por qué Calistenia?</h1>
                     </div>
                     {/* FILA2: Columna derecha */}
                     <div className="flex flex-col justify-center px-4 sm:px-6 md:px-12 py-4 md:py-40 bg-[#E6EBE0] text-[#141C12]">
-                        <p className="text-base sm:text-lg md:text-xl lg:text-2xl mt-3 leading-[1.8] md:leading-[2] lg:leading-[2.2]">Conecta cuerpo y mente: entrena donde quieras usando solo tu cuerpo y disfruta de todos sus beneficios</p>
+                        <p className="text-base sm:text-lg md:text-xl lg:text-2xl mt-2 leading-[1.8] md:leading-[2] lg:leading-[2.2]">Conecta cuerpo y mente: entrena donde quieras usando solo tu cuerpo y disfruta de todos sus beneficios</p>
                     </div>
                 </div>
                 {/* FILA3: Carrusel de imagenes, IMG DE EJEMPLO */}

@@ -1,7 +1,7 @@
 function Footer() {
     return (
         <footer className="w-full bg-[#5D7A4F] text-amulet-100 py-6 sm:py-8">
-            <div className="max-w-screen-xl mx-auto px-4">
+            <div className="w-full px-4 sm:px-6 md:px-12">
                 {/* Logo y enlaces */}
                 <div className="flex flex-col space-y-6 sm:flex-row sm:items-center sm:justify-between sm:space-y-0 mb-6">
                     {/* Logo centrado en móvil */}
