@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import ScrollToTop from '../components/common/ScrollToTop'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import Home from '../pages/Home'
@@ -12,6 +13,7 @@ import ComingSoon from '../pages/ComingSoon'
 const AppRouter = () => {
   return (
     <BrowserRouter>
+    <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
