@@ -5,9 +5,14 @@ function WorkoutCard({ workout }) {
     const navigate = useNavigate();
 
     const handleWorkout = () => {
-        console.log("Workout clickeado:", workout.id, workout.type);
         navigate(`/workouts/${workout.id}`);
     };
+
+    const getWorkoutImage = (workout) => {
+    // Asumiendo que tienes imágenes como "calistenia.png", "cardio.png", etc.
+    const imageName = workout.type; // o la propiedad que uses
+    return `/images/workouts/${imageName.toLowerCase()}.png`;
+};
 
     return (
         <div 
@@ -27,7 +32,7 @@ function WorkoutCard({ workout }) {
                 removeWrapper
                 alt="Card background"
                 className="z-0 w-full h-full object-cover"
-                src={workout.image || "https://heroui.com/images/card-example-4.jpeg"}
+                src={getWorkoutImage(workout)}
             />
         </div>
     );

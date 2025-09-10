@@ -49,7 +49,7 @@ const useWorkoutStore = create<WorkoutState>((set, get) => ({
     fetchWorkouts: async () => {
         set({ loading: true, error: null })
         try {
-            console.log('Fetching workouts from:', `${API_BASE_URL}/workouts`)
+            // console.log('Fetching workouts from:', `${API_BASE_URL}/workouts`)
             const response = await fetch(`${API_BASE_URL}/workouts`)
             
             if (!response.ok) {
@@ -57,7 +57,7 @@ const useWorkoutStore = create<WorkoutState>((set, get) => ({
             }
             
             const data: APIResponse<Workout[]> = await response.json()
-            console.log('Workouts data received:', data)
+            // console.log('Workouts data received:', data)
 
             if (data.success) {
                 set({

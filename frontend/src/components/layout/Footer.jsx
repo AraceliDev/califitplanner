@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 function Footer() {
     return (
         <footer className="w-full bg-[#5D7A4F] text-amulet-100 py-6 sm:py-8">
@@ -6,39 +8,38 @@ function Footer() {
                 <div className="flex flex-col space-y-6 sm:flex-row sm:items-center sm:justify-between sm:space-y-0 mb-6">
                     {/* Logo centrado en móvil */}
                     <div className="flex items-center justify-center sm:justify-start">
-                        <img 
-                            src="/images/logos/logoCalifitWhite.svg" 
-                            className="h-10 sm:h-8 md:h-12  mr-2 sm:mr-3" 
-                            alt="CaliFit Planner Logo" 
-                        />
-                        {/* <span className="text-lg sm:text-xl font-bold">
-                            CaliFit Planner
-                        </span> */}
+                        <Link to="/">
+                            <img
+                                src="/images/logos/logoCalifitWhite.svg"
+                                className="h-10 sm:h-8 md:h-12 mr-2 sm:mr-3 cursor-pointer hover:opacity-80 transition-opacity duration-200"
+                                alt="CaliFit Planner Logo"
+                            />
+                        </Link>
                     </div>
-                    
+
                     {/* Enlaces centrados en móvil */}
                     <div className="flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-6 text-sm text-center sm:text-left">
-                        <a 
-                            href="#" 
+                        <Link
+                            to="/privacidad"
                             className="hover:text-[#CCD7C3] transition-colors duration-200 py-1"
                         >
                             Privacidad
-                        </a>
-                        <a 
-                            href="#" 
+                        </Link>
+                        <Link
+                            to="/contacto"
                             className="hover:text-[#CCD7C3] transition-colors duration-200 py-1"
                         >
                             Contacto
-                        </a>
-                        <a 
-                            href="#" 
+                        </Link>
+                        <Link
+                            to="/ayuda"
                             className="hover:text-[#CCD7C3] transition-colors duration-200 py-1"
                         >
                             Ayuda
-                        </a>
+                        </Link>
                     </div>
                 </div>
-                
+
                 {/* Línea divisoria */}
                 <div className="border-t border-white/20 pt-4">
                     <p className="text-center text-xs sm:text-sm text-white/80 leading-relaxed">

@@ -23,10 +23,9 @@ const WorkoutSelector = () => {
     setLevelFilter 
   } = usePlannerStore()
 
-  // Debug - agrega esto temporalmente
-  console.log('selectedWorkout:', selectedWorkout)
+  // Debug 
+  // console.log('selectedWorkout:', selectedWorkout)
 
-  // Niveles de respaldo si no se cargan desde el backend
   const defaultLevels = ['principiante', 'intermedio', 'avanzado']
   const levelsToShow = availableLevels && availableLevels.length > 0 ? availableLevels : defaultLevels
 
@@ -44,7 +43,7 @@ const WorkoutSelector = () => {
   }, [])
 
   const handleWorkoutSelect = (workout: Workout) => {
-    console.log('Selecting workout:', workout.id) // Debug
+    // console.log('Selecting workout:', workout.id) // Debug
     setSelectedWorkout(workout)
   }
 
@@ -179,7 +178,7 @@ const WorkoutSelector = () => {
             <div className="gap-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3">
               {workouts.map((workout) => {
                 const isSelected = selectedWorkout?.id === workout.id
-                console.log(`Workout ${workout.id} selected:`, isSelected) // Debug
+                // console.log(`Workout ${workout.id} selected:`, isSelected) // Debug
                 
                 return (
                   <Card

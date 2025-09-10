@@ -2,21 +2,21 @@ import { Image } from "@heroui/image";
 import Button from "@/components/common/Button";
 import Carousel from "@/components/common/Carousel";
 import CustomSelect from "@/components/common/CustomSelect ";
+import { useNavigate } from 'react-router-dom'
 
 function Home() {
+    const navigate = useNavigate()
+
     const handleCreateRoutine = () => {
-        console.log("Crear rutina clickeado");
-        // Navegación o lógica para crear rutina
+        navigate('/rutinas')
     };
 
     const handleWorkouts = () => {
-        console.log("Workouts clickeado");
-        // Navegación o lógica para workouts
+        navigate('/workouts')
     };
 
     const handleLevelSelect = (level) => {
-        console.log("Nivel seleccionado:", level);
-        // Aquí puedes manejar la selección del nivel
+        navigate('/workouts')
     };
 
     const levelOptions = [

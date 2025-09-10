@@ -22,7 +22,6 @@ function Workout() {
   }, [id, fetchWorkoutById, clearSelectedWorkout]);
 
   const handleGoBack = () => {
-    console.log("Atrás clickeado");
     navigate(`/workouts`);
   };
 

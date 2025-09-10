@@ -21,7 +21,6 @@ function ExerciseCard({ exercise, workoutId }: ExerciseCardProps) {
     const currentWorkoutId = workoutId || params.id;
 
     const handleExerciseDetails = () => {
-        console.log("ver detalles de un ejercicio");
         navigate(`/workouts/${currentWorkoutId}/exercises/${exercise.id}`);
     };
     
@@ -30,7 +29,7 @@ function ExerciseCard({ exercise, workoutId }: ExerciseCardProps) {
             <div className="w-full md:w-48 md:h-full flex-shrink-0">
                 <Image
                     isZoomed
-                    src={exercise.image || "/images/aros.jpg"}
+                    src={exercise.image || "/images/sport.jpg"}
                     alt={exercise.nombre}
                     className="object-cover md:h-full rounded-t-xl md:rounded-none md:rounded-s-xl"
                 />
