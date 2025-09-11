@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Configuración global de colores de paleta amulet */
+:root {
+  --color-amulet-50: #f4f7f2;
+  --color-amulet-100: #e6ebe0;
+  --color-amulet-200: #ccd7c3;
+  --color-amulet-300: #a7ba9b;
+  --color-amulet-400: #819a72;
+  --color-amulet-500: #5d7a4f;
+  --color-amulet-600: #46603b;
+  --color-amulet-700: #384d2f;
+  --color-amulet-800: #2d3e27;
+  --color-amulet-900: #263321;
+  --color-amulet-950: #141c12;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--color-amulet-100); /* #E6EBE0 */
+  color: var(--color-amulet-950); /* #141C12 */
+}
+
+/* toda la aplicación  el fondo correcto */
+#root {
+  background-color: var(--color-amulet-100);
+  min-height: 100vh;
+}
+
+/* * {
+  outline: 1px solid red;
+} */
