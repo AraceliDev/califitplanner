@@ -44,14 +44,8 @@ export const DayColumn = ({ dayData, onDrop, onRemoveExercise }: DayColumnProps)
     }
     const getWorkoutTypeFromExercises = (exercises: PlannerExercise[]) => {
         if (exercises.length === 0) return null
-
-        // Obtener todos los tipos de workout únicos de los ejercicios
         const workoutTypes = [...new Set(exercises.map(pe => pe.workoutType))]
-
-        // Si hay múltiples tipos, mostrar "Mixto"
         if (workoutTypes.length > 1) return "Mixto"
-
-        // Si hay un solo tipo, mostrarlo
         return workoutTypes[0]
     }
 

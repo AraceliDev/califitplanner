@@ -49,7 +49,6 @@ const useWorkoutStore = create<WorkoutState>((set, get) => ({
     fetchWorkouts: async () => {
         set({ loading: true, error: null })
         try {
-            // console.log('Fetching workouts from:', `${API_BASE_URL}/workouts`)
             const response = await fetch(`${API_BASE_URL}/workouts`)
             
             if (!response.ok) {
@@ -57,8 +56,6 @@ const useWorkoutStore = create<WorkoutState>((set, get) => ({
             }
             
             const data: APIResponse<Workout[]> = await response.json()
-            // console.log('Workouts data received:', data)
-
             if (data.success) {
                 set({
                     workouts: data.data || [],
@@ -71,7 +68,6 @@ const useWorkoutStore = create<WorkoutState>((set, get) => ({
                 })
             }
         } catch (error) {
-            console.error('Error fetching workouts:', error)
             set({
                 error: `Error de conexión: ${error instanceof Error ? error.message : 'Unknown error'}`,
                 loading: false

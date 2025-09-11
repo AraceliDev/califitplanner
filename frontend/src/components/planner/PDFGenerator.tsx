@@ -14,16 +14,9 @@ const PDFGenerator = () => {
   const getWeekDates = () => {
     const dates = []
     const startOfWeek = new Date(selectedWeek)
-
-    // Obtener el día de la semana (0 = domingo, 1 = lunes, etc.)
     const dayOfWeek = startOfWeek.getDay()
-
-    // Calcular días para retroceder hasta el lunes
     const daysToSubtract = dayOfWeek === 0 ? 6 : dayOfWeek - 1
-
-    // Establecer el lunes de esa semana
     startOfWeek.setDate(startOfWeek.getDate() - daysToSubtract)
-
     const dayNames = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
     const dayLabels = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']
 
@@ -52,12 +45,10 @@ const PDFGenerator = () => {
       const startDate = weekDates[0].date
       const endDate = weekDates[6].date
 
-      // Crear nuevo documento PDF
-      const doc = new jsPDF('p', 'mm', 'a4') // Portrait, milímetros, A4
+      const doc = new jsPDF('p', 'mm', 'a4') 
       const pageWidth = doc.internal.pageSize.getWidth()
       const pageHeight = doc.internal.pageSize.getHeight()
 
-      // Configuración de colores (tu paleta amulet)
       const colors = {
         primary: '#5d7a4f',      // amulet-600
         secondary: '#a7ba9b',    // amulet-300
@@ -219,7 +210,6 @@ const PDFGenerator = () => {
 
         // Mostrar cada workout y sus ejercicios
         Object.entries(workoutExercises).forEach(([workoutName, exercises]) => {
-          // Verificar si necesitamos nueva página
           if (yPosition > 250) {
             doc.addPage()
             yPosition = 20
@@ -236,7 +226,6 @@ const PDFGenerator = () => {
           yPosition += 15
 
           exercises.forEach((exercise) => {
-            // Verificar espacio para el ejercicio
             if (yPosition > 250) {
               doc.addPage()
               yPosition = 20
@@ -276,7 +265,7 @@ const PDFGenerator = () => {
         })
       }
 
-      // Footer en todas las páginas
+      // Footer
       const pageCount = doc.getNumberOfPages()
       for (let i = 1; i <= pageCount; i++) {
         doc.setPage(i)
@@ -296,13 +285,11 @@ const PDFGenerator = () => {
       link.download = fileName
       
       link.addEventListener('click', () => {
-        // Esperar un poco para que aparezca el diálogo de descarga
         setTimeout(() => {
           setDownloadSuccess(true)
           onOpen()
-          // Limpiar la URL temporal
           URL.revokeObjectURL(url)
-        }, 1500) // 1.5 segundos para dar tiempo al diálogo de guardado
+        }, 1500) 
       })
       
       document.body.appendChild(link)
@@ -311,7 +298,6 @@ const PDFGenerator = () => {
       
     } catch (error) {
       console.error('Error generando PDF:', error)
-      // Aquí podrías mostrar un toast de error
     } finally {
       setIsGenerating(false)
     }

@@ -179,13 +179,12 @@ function Home() {
                                         placeholder="Elige tu nivel"
                                         onSelect={handleLevelSelect}
                                     />
-                                   
                                 </div>
 
                                 <Button
                                     type="destacado"
                                     onClick={handleWorkouts}
-                                    text={selectedLevel ? "Buscar ejercicios" : "Selecciona un nivel primero"}
+                                    text={selectedLevel ? "Buscar ejercicios" : "Seleccionar nivel"}
                                     extraClasses="w-full py-4 text-lg font-semibold bg-[#2D3E27] hover:bg-[#1A2319] transform hover:scale-105 transition-all duration-200"
                                     disabled={!selectedLevel}
                                 />

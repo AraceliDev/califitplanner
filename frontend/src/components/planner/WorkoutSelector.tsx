@@ -23,9 +23,6 @@ const WorkoutSelector = () => {
     setLevelFilter 
   } = usePlannerStore()
 
-  // Debug 
-  // console.log('selectedWorkout:', selectedWorkout)
-
   const defaultLevels = ['principiante', 'intermedio', 'avanzado']
   const levelsToShow = availableLevels && availableLevels.length > 0 ? availableLevels : defaultLevels
 
@@ -43,7 +40,6 @@ const WorkoutSelector = () => {
   }, [])
 
   const handleWorkoutSelect = (workout: Workout) => {
-    // console.log('Selecting workout:', workout.id) // Debug
     setSelectedWorkout(workout)
   }
 
@@ -77,7 +73,6 @@ const WorkoutSelector = () => {
     return labels[level] || level
   }
 
-  // Componente para mostrar iconos de pesas según el nivel
   const DumbbellIcons = ({ level }: { level: Workout['level'] }) => {
     const getDumbbellCount = (level: Workout['level']) => {
       switch (level) {
@@ -177,9 +172,7 @@ const WorkoutSelector = () => {
           {workouts && workouts.length > 0 ? (
             <div className="gap-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3">
               {workouts.map((workout) => {
-                const isSelected = selectedWorkout?.id === workout.id
-                // console.log(`Workout ${workout.id} selected:`, isSelected) // Debug
-                
+                const isSelected = selectedWorkout?.id === workout.id                
                 return (
                   <Card
                     key={workout.id}
