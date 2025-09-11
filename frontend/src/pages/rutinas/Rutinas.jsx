@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button, Tooltip } from '@heroui/react'
 import WorkoutSelector from '@/components/planner/WorkoutSelector'
 import ExerciseList from '@/components/planner/ExerciseList'
@@ -11,6 +11,16 @@ import Stepper from '@/components/planner/Stepper'
 function Rutinas() {
   const [currentStep, setCurrentStep] = useState(1)
   const { selectedWorkout, weeklyPlan } = usePlannerStore()
+
+  // Función para hacer scroll al inicio cuando cambia el paso
+  const handleStepChange = (newStep) => {
+    setCurrentStep(newStep)
+    // Scroll suave al inicio de la página
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }
 
   const steps = [
     { id: 1, title: 'Semana', description: 'Elige la semana de entrenamiento' },
@@ -44,7 +54,7 @@ function Rutinas() {
                 <Button
                   color="primary"
                   variant="bordered"
-                  onClick={() => setCurrentStep(2)}
+                  onClick={() => handleStepChange(2)}
                   className="border-amulet-600 text-amulet-600 hover:bg-amulet-50"
                 >
                   + Añadir nuevo Workout
@@ -108,7 +118,7 @@ function Rutinas() {
     return (
       <div className="flex justify-between mt-8">
         <Button
-          onClick={() => setCurrentStep(currentStep - 1)}
+          onClick={() => handleStepChange(currentStep - 1)}
           disabled={!canGoPrev}
           variant="ghost"
           className="text-amulet-600"
@@ -126,7 +136,7 @@ function Rutinas() {
               >
                 <div>
                   <Button
-                    onClick={() => setCurrentStep(currentStep + 1)}
+                    onClick={() => handleStepChange(currentStep + 1)}
                     disabled={!canGoNextStep}
                     color="success"
                     className="bg-amulet-600 hover:bg-amulet-700"
@@ -137,7 +147,7 @@ function Rutinas() {
               </Tooltip>
             ) : (
               <Button
-                onClick={() => setCurrentStep(currentStep + 1)}
+                onClick={() => handleStepChange(currentStep + 1)}
                 disabled={!canGoNextStep}
                 color="success"
                 className="bg-amulet-600 hover:bg-amulet-700"
@@ -150,7 +160,7 @@ function Rutinas() {
 
         {currentStep === 4 && (
           <Button
-            onClick={() => setCurrentStep(1)}
+            onClick={() => handleStepChange(1)}
             variant="ghost"
             className="text-amulet-600"
           >
@@ -178,7 +188,7 @@ function Rutinas() {
         </div>
 
         {/* Stepper */}
-        <Stepper currentStep={currentStep} steps={steps} />
+        <Stepper currentStep={currentStep} steps={steps} onStepChange={handleStepChange} />
 
         {/* Contenido del paso actual */}
         <div className="min-h-[400px]">

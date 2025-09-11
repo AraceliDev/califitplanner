@@ -1,6 +1,6 @@
 import { Button as HeroButton } from "@heroui/react";
 
-function Button({ type = "primario", text, onClick, extraClasses = "" }) {
+function Button({ type = "primario", text, onClick, extraClasses = "", disabled = false }) {
   let variant = "solid";
   let baseClasses = "bg-[#2D3E27] text-amulet-100 hover:bg-[#264026]";
 
@@ -24,7 +24,12 @@ function Button({ type = "primario", text, onClick, extraClasses = "" }) {
   const finalClasses = extraClasses ? `${baseClasses} ${extraClasses}` : baseClasses;
 
   return (
-    <HeroButton variant={variant} className={finalClasses} onClick={onClick}>
+    <HeroButton 
+      variant={variant} 
+      className={finalClasses} 
+      onClick={onClick}
+      isDisabled={disabled}
+    >
       {text}
     </HeroButton>
   );

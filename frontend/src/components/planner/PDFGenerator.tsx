@@ -286,12 +286,28 @@ const PDFGenerator = () => {
         doc.text(`Página ${i} de ${pageCount}`, 195, 285, { align: 'right' })
       }
 
-      // Guardar el PDF
-      doc.save(`rutina-califit-${startDate.replace(/\//g, '-')}.pdf`)
+      // Guardar el PDF con detección de descarga completada
+      const fileName = `rutina-califit-${startDate.replace(/\//g, '-')}.pdf`
       
-      // Mostrar éxito y abrir modal
-      setDownloadSuccess(true)
-      onOpen()
+      const pdfBlob = doc.output('blob')
+      const url = URL.createObjectURL(pdfBlob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = fileName
+      
+      link.addEventListener('click', () => {
+        // Esperar un poco para que aparezca el diálogo de descarga
+        setTimeout(() => {
+          setDownloadSuccess(true)
+          onOpen()
+          // Limpiar la URL temporal
+          URL.revokeObjectURL(url)
+        }, 1500) // 1.5 segundos para dar tiempo al diálogo de guardado
+      })
+      
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
       
     } catch (error) {
       console.error('Error generando PDF:', error)

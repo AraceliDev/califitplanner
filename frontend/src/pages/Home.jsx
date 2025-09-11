@@ -3,9 +3,11 @@ import Button from "@/components/common/Button";
 import Carousel from "@/components/common/Carousel";
 import CustomSelect from "@/components/common/CustomSelect ";
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 function Home() {
     const navigate = useNavigate()
+    const [selectedLevel, setSelectedLevel] = useState(null)
 
     const handleCreateRoutine = () => {
         navigate('/rutinas')
@@ -16,7 +18,8 @@ function Home() {
     };
 
     const handleLevelSelect = (level) => {
-        navigate('/workouts')
+        setSelectedLevel(level)
+        // Ya no navega automáticamente
     };
 
     const levelOptions = [
@@ -176,13 +179,15 @@ function Home() {
                                         placeholder="Elige tu nivel"
                                         onSelect={handleLevelSelect}
                                     />
+                                   
                                 </div>
 
                                 <Button
                                     type="destacado"
                                     onClick={handleWorkouts}
-                                    text="Buscar ejercicios"
+                                    text={selectedLevel ? "Buscar ejercicios" : "Selecciona un nivel primero"}
                                     extraClasses="w-full py-4 text-lg font-semibold bg-[#2D3E27] hover:bg-[#1A2319] transform hover:scale-105 transition-all duration-200"
+                                    disabled={!selectedLevel}
                                 />
                             </div>
 
