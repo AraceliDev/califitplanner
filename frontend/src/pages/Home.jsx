@@ -60,10 +60,10 @@ function Home() {
 
     return (
         <>
-            <div className="w-full overflow-x-hidden">
+            <div className="w-full overflow-x-hidden -mt-12 md:-mt-14">
                 <div className="grid grid-cols-1 md:grid-cols-2 w-full py-2 md:py-2 bg-[#E6EBE0] text-amulet-100">
                     {/* FILA1: Columna izquierda */}
-                    <div className="flex flex-col justify-start px-4 sm:px-6 md:px-12 py-16 md:py-24 bg-[#5D7A4F] max-h-[600px] md:max-h-[800px]">
+                    <div className="flex flex-col justify-start px-4 sm:px-6 md:px-12 py-16 md:py-20 bg-[#5D7A4F] max-h-[600px] md:max-h-[800px]">
                         <h1 className="text-3xl leading-relaxed sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 md:mb-8">
                             CaliFit Planner: Comienza tu transformación
                         </h1>

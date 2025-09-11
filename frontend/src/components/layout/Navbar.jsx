@@ -8,7 +8,7 @@ function Navbar() {
         setIsMenuOpen(!isMenuOpen);
     };
     return (
-        <nav className="w-full bg-[#E6EBE0] text-[#141C12] py-2 md:py-1">
+        <nav className="fixed top-0 w-full bg-[#E6EBE0] text-[#141C12] py-1 md:py-1 z-50">
             <div className="w-full px-4 sm:px-6 md:px-12">
                 <div className="flex justify-between items-center">
                     {/* Logo */}

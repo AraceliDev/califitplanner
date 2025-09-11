@@ -15,18 +15,20 @@ const AppRouter = () => {
     <BrowserRouter>
     <ScrollToTop />
       <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/workouts" element={<Workouts />} />
-        <Route path="/workouts/:id" element={<Workout />} />
-        <Route path="/workouts/:workoutId/exercises/:exerciseId" element={<Exercise />} />
-        <Route path="/rutinas" element={<Rutinas />} />
-        <Route path="/recursos" element={<Recursos />} />
-        <Route path="/privacidad" element={<ComingSoon />} />
-        <Route path="/contacto" element={<ComingSoon />} />
-        <Route path="/ayuda" element={<ComingSoon />} />
-      </Routes>
+      <main className="pt-12 md:pt-14">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/workouts" element={<Workouts />} />
+          <Route path="/workouts/:id" element={<Workout />} />
+          <Route path="/workouts/:workoutId/exercises/:exerciseId" element={<Exercise />} />
+          <Route path="/rutinas" element={<Rutinas />} />
+          <Route path="/recursos" element={<Recursos />} />
+          <Route path="/privacidad" element={<ComingSoon />} />
+          <Route path="/contacto" element={<ComingSoon />} />
+          <Route path="/ayuda" element={<ComingSoon />} />
+        </Routes>
+      </main>
       <Footer />
     </BrowserRouter>
   )
