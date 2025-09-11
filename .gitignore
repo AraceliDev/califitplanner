@@ -45,3 +45,11 @@
 # OS específicos
 .DS_Store
 Thumbs.db
+
+# Vite cache
+frontend/.vite/
+frontend/.vite-cache/
+
+# Vite cache
+frontend/.vite/
+frontend/.vite-cache/
