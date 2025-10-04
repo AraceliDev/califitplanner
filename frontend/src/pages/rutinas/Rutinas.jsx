@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Button, Tooltip } from '@heroui/react'
+import { Tooltip } from '@heroui/react'
 import WorkoutSelector from '@/components/planner/WorkoutSelector'
 import ExerciseList from '@/components/planner/ExerciseList'
 import WeekSelector from '@/components/planner/WeekSelector'
@@ -7,6 +7,7 @@ import WeeklyPlanner from '@/components/planner/WeeklyPlanner'
 import PDFGenerator from '@/components/planner/PDFGenerator'
 import usePlannerStore from '@/stores/plannerStore'
 import Stepper from '@/components/planner/Stepper'
+import Button from "@/components/common/Button";
 
 function Rutinas() {
   const [currentStep, setCurrentStep] = useState(1)
@@ -52,13 +53,10 @@ function Rutinas() {
               <ExerciseList />
               <div className="text-center mt-4">
                 <Button
-                  color="primary"
-                  variant="bordered"
+                  type="secundario" 
                   onClick={() => handleStepChange(2)}
-                  className="border-amulet-600 text-amulet-600 hover:bg-amulet-50"
-                >
-                  + Añadir nuevo Workout
-                </Button>
+                  text="+ Añadir nuevo Workout"
+                />
               </div>
             </div>
             <div className="lg:col-span-3">
@@ -90,7 +88,7 @@ function Rutinas() {
 
     const canGoNext = () => {
       switch (currentStep) {
-        case 1: return true 
+        case 1: return true
         case 2: return selectedWorkout !== null
         case 3: return hasExercises
         default: return true
@@ -118,14 +116,11 @@ function Rutinas() {
     return (
       <div className="flex justify-between mt-8">
         <Button
+          type="secundario"
           onClick={() => handleStepChange(currentStep - 1)}
           disabled={!canGoPrev}
-          variant="ghost"
-          className="text-amulet-600"
-        >
-          ← Anterior
-        </Button>
-
+          text="← Anterior"
+        />
         {currentStep < 4 && (
           <>
             {showTooltip ? (
@@ -136,36 +131,32 @@ function Rutinas() {
               >
                 <div>
                   <Button
+                    type="primario"
                     onClick={() => handleStepChange(currentStep + 1)}
                     disabled={!canGoNextStep}
-                    color="success"
-                    className="bg-amulet-600 hover:bg-amulet-700"
-                  >
-                    {currentStep === 3 ? 'Finalizar' : 'Siguiente →'}
-                  </Button>
+                    text={currentStep === 3 ? 'Finalizar' : 'Siguiente →'}
+                  />
                 </div>
               </Tooltip>
             ) : (
+
               <Button
+                type="primario"
                 onClick={() => handleStepChange(currentStep + 1)}
                 disabled={!canGoNextStep}
-                color="success"
-                className="bg-amulet-600 hover:bg-amulet-700"
-              >
-                {currentStep === 3 ? 'Finalizar' : 'Siguiente →'}
-              </Button>
+                text={currentStep === 3 ? 'Finalizar' : 'Siguiente →'}
+              />
             )}
           </>
         )}
 
         {currentStep === 4 && (
           <Button
+            type="secundario" 
             onClick={() => handleStepChange(1)}
             variant="ghost"
-            className="text-amulet-600"
-          >
-            Nueva rutina
-          </Button>
+            text=" Nueva rutina"
+          />
         )}
       </div>
     )
