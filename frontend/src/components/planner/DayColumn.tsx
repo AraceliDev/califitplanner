@@ -79,28 +79,29 @@ export const DayColumn = ({ dayData, onDrop, onRemoveExercise }: DayColumnProps)
         <div className="flex flex-col h-full p-1">
             <Card className="flex-1 h-full">
                 <CardHeader className="pb-2">
-                    <div className="w-full">
-                        <div className="flex justify-between items-center">
-                            <h3 className="text-sm font-medium text-amulet-950">{dayLabel}</h3>
-                            <span className="text-xs text-amulet-600">{date}</span>
-                        </div>
-                        <div className="flex justify-between items-center mt-1">
-                            <Chip
-                                size="sm"
-                                variant="flat"
-                                className={`${getRecommendationColor()} bg-transparent border-none text-xs`}
-                            >
-                                {exercises.length} ejercicios
-                            </Chip>
-                            {/* Nuevo tag de tipo de workout */}
-                            {getWorkoutTypeFromExercises(exercises) && (
-                                <span className={`text-xs px-2 py-1 rounded-full ${getWorkoutTypeColor(getWorkoutTypeFromExercises(exercises))}`}>
-                                    {getWorkoutTypeLabel(getWorkoutTypeFromExercises(exercises))}
-                                </span>
-                            )}
-                        </div>
-                    </div>
-                </CardHeader>
+    <div className="w-full">
+        <div className="flex justify-between items-center">
+            <h3 className="text-sm font-medium text-amulet-950">{dayLabel}</h3>
+            <span className="text-xs text-amulet-600">{date}</span>
+        </div>
+        <div className="flex flex-col gap-1 mt-1">
+            {/* Tipo de workout primero */}
+            {getWorkoutTypeFromExercises(exercises) && (
+                <span className={`text-xs px-2 py-1 rounded-full w-fit ${getWorkoutTypeColor(getWorkoutTypeFromExercises(exercises))}`}>
+                    {getWorkoutTypeLabel(getWorkoutTypeFromExercises(exercises))}
+                </span>
+            )}
+            {/* Número de ejercicios debajo */}
+            <Chip
+                size="sm"
+                variant="flat"
+                className={`${getRecommendationColor()} bg-transparent border-none text-xs w-fit`}
+            >
+                {exercises.length} ejercicios
+            </Chip>
+        </div>
+    </div>
+</CardHeader>
 
                 <CardBody
                     className="pt-0 min-h-[200px] space-y-2"
