@@ -47,23 +47,28 @@ function Rutinas() {
           </div>
         )
       case 3:
-        return (
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            <div className="lg:col-span-1">
-              <ExerciseList />
-              <div className="text-center mt-4">
-                <Button
-                  type="secundario" 
-                  onClick={() => handleStepChange(2)}
-                  text="+ Añadir nuevo Workout"
-                />
-              </div>
-            </div>
-            <div className="lg:col-span-3">
-              <WeeklyPlanner />
-            </div>
+  // Verificar si hay ejercicios en algún día del calendario
+  const hasExercisesInCalendar = Object.values(weeklyPlan).some(day => day.length > 0)
+  
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="lg:col-span-1">
+        <ExerciseList />
+        {hasExercisesInCalendar && (
+          <div className="text-center mt-4">
+            <Button
+              type="secundario" 
+              onClick={() => handleStepChange(2)}
+              text="+ Añadir nuevo Workout"
+            />
           </div>
-        )
+        )}
+      </div>
+      <div className="lg:col-span-3">
+        <WeeklyPlanner />
+      </div>
+    </div>
+  )
       case 4:
         return (
           <div className="text-center space-y-6">
