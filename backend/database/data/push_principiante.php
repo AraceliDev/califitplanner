@@ -20,7 +20,7 @@ return [
                     ],
                     'consejos' => ['Mantén el cuerpo recto como una tabla']
                 ],
-                'imagen' => 'exercises/push/pushupWall.jpg',
+                'imagen' => 'exercises/push/pushupWall.png',
                 'repeticiones' => 8,
                 'series' => 3,
                 'descanso' => 60
@@ -38,7 +38,7 @@ return [
                         'Empuja hacia arriba manteniendo la línea recta del cuerpo.'
                     ]
                 ],
-                'imagen' => 'exercises/push/pushupsRodillas.jpg',
+                'imagen' => 'exercises/push/pushupsRodillas.png',
                 'repeticiones' => 10,
                 'series' => 3,
                 'descanso' => 60
@@ -61,7 +61,7 @@ return [
                         'Mantén el abdomen contraído durante todo el movimiento'
                     ]
                 ],
-                'imagen' => 'exercises/push/pushIncline.jpg',
+                'imagen' => 'exercises/push/pushIncline.png',
                 'repeticiones' => 6,
                 'series' => 3,
                 'descanso' => 60
@@ -87,7 +87,7 @@ return [
                         'Elige un peso que te permita una técnica correcta en todas las repeticiones.'
                     ]
                 ],
-                'imagen' => 'exercises/push/pushupWall.jpg',
+                'imagen' => 'exercises/push/pressPechoCerrado.png',
                 'repeticiones' => 10,
                 'series' => 3,
                 'descanso' => 90

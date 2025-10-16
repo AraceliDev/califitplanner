@@ -24,7 +24,7 @@ return [
                         'Evita balancearte o usar impulso'
                     ]
                 ],
-                // 'imagen' => 'exercises/pull/assisted-pull-ups.png',
+                'imagen' => 'exercises/pull/assisted-pull-ups.png',
                 'repeticiones' => 6,
                 'series' => 3,
                 'descanso' => 90
@@ -47,7 +47,7 @@ return [
                         'Mantén el core activo durante todo el movimiento'
                     ]
                 ],
-                // 'imagen' => 'exercises/pull/inverted-rows.png',
+                'imagen' => 'exercises/pull/inverted-rows.png',
                 'repeticiones' => 8,
                 'series' => 3,
                 'descanso' => 60
@@ -70,7 +70,7 @@ return [
                         'Progresa aumentando gradualmente el tiempo'
                     ]
                 ],
-                // 'imagen' => 'exercises/pull/dead-hang.png',
+                'imagen' => 'exercises/pull/dead-hang.png',
                 'tiempo' => '15-30 segundos',
                 'series' => 3,
                 'descanso' => 60
@@ -94,7 +94,7 @@ return [
                         'Imagina que estás "empujando" la barra hacia abajo'
                     ]
                 ],
-                // 'imagen' => 'exercises/pull/scapular-pull-ups.png',
+                'imagen' => 'exercises/pull/scapular-pull-ups.png',
                 'repeticiones' => 10,
                 'series' => 3,
                 'descanso' => 45

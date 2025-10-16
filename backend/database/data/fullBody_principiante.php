@@ -24,7 +24,7 @@ return [
                         'Respira profundo al bajar y exhala al subir'
                     ]
                 ],
-                // 'imagen' => 'exercises/full-body/bodyweight-squats.png',
+                'imagen' => 'exercises/full-body/squat.png',
                 'repeticiones' => 10,
                 'series' => 3,
                 'descanso' => 60
@@ -47,7 +47,7 @@ return [
                         'No dejes caer las caderas'
                     ]
                 ],
-                // 'imagen' => 'exercises/full-body/knee-push-ups.png',
+                'imagen' => 'exercises/full-body/flexion_rodillas.png',
                 'repeticiones' => 8,
                 'series' => 3,
                 'descanso' => 60
@@ -70,7 +70,7 @@ return [
                         'Resiste la gravedad durante todo el descenso'
                     ]
                 ],
-                // 'imagen' => 'exercises/full-body/negative-pull-ups.png',
+                'imagen' => 'exercises/full-body/dominada_negativa.png',
                 'repeticiones' => 5,
                 'series' => 3,
                 'descanso' => 90
@@ -93,7 +93,7 @@ return [
                         'Aprieta los omóplatos al subir'
                     ]
                 ],
-                // 'imagen' => 'exercises/full-body/inverted-rows.png',
+                'imagen' => 'exercises/full-body/remo.png',
                 'repeticiones' => 6,
                 'series' => 3,
                 'descanso' => 60

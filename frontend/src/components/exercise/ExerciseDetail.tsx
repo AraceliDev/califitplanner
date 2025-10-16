@@ -55,7 +55,7 @@ function ExerciseDetail() {
                         <div className="order-2 lg:order-1">
                             <div className="relative overflow-hidden rounded-2xl shadow-2xl bg-white p-4 h-full flex items-center">
                                 <Image
-                                    src="/images/pushupbench.png"
+                                    src={`../../../public/images/${selectedExercise.imagen}`}
                                     alt={selectedExercise.nombre}
                                     className="w-full h-auto rounded-xl object-cover"
                                 />
