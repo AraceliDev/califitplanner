@@ -1,8 +1,35 @@
 import { Image } from "@heroui/image";
+import { useNavigate, useParams } from "react-router-dom";
 import useExerciseStore from '@/stores/exerciseStore';
 
 function ExerciseDetail() {
-    const { selectedExercise, currentWorkoutName } = useExerciseStore();
+    const navigate = useNavigate();
+    const { workoutId } = useParams();
+    const { 
+        selectedExercise, 
+        currentWorkoutName,
+        exercises,
+        getNextExercise,
+        getPreviousExercise,
+        getCurrentExerciseIndex
+    } = useExerciseStore();
+
+    const nextExercise = getNextExercise();
+    const previousExercise = getPreviousExercise();
+    const currentIndex = getCurrentExerciseIndex();
+    const totalExercises = exercises.length;
+
+    const handleNextExercise = () => {
+        if (nextExercise && workoutId) {
+            navigate(`/workouts/${workoutId}/exercises/${nextExercise.id}`);
+        }
+    };
+
+    const handlePreviousExercise = () => {
+        if (previousExercise && workoutId) {
+            navigate(`/workouts/${workoutId}/exercises/${previousExercise.id}`);
+        }
+    };
 
     if (!selectedExercise) {
         return (
@@ -32,6 +59,60 @@ function ExerciseDetail() {
                                 </svg>
                                 {currentWorkoutName}
                             </span>
+                        </div>
+                    )}
+
+                    {/* Navegación entre ejercicios */}
+                    {totalExercises > 0 && (
+                        <div className="flex items-center justify-between mb-8 gap-4">
+                            {/* Botón Anterior */}
+                            <button
+                                onClick={handlePreviousExercise}
+                                disabled={!previousExercise}
+                                className={`flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold transition-all duration-300 
+                                    ${previousExercise 
+                                        ? 'bg-amulet-600 hover:bg-amulet-700 text-white shadow-md hover:shadow-xl hover:-translate-x-1' 
+                                        : 'bg-amulet-100 text-amulet-400 cursor-not-allowed'
+                                    }
+                                    sm:px-6 sm:py-3`}
+                                aria-label="Ejercicio anterior"
+                            >
+                                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                </svg>
+                                <span className="hidden sm:inline">Anterior</span>
+                            </button>
+
+                            {/* Indicador de progreso */}
+                            <div className="flex flex-col items-center gap-1 flex-1">
+                                <span className="text-sm text-amulet-600 font-medium">
+                                    Ejercicio {currentIndex + 1} de {totalExercises}
+                                </span>
+                                <div className="w-full max-w-xs bg-amulet-200 rounded-full h-2 overflow-hidden">
+                                    <div 
+                                        className="bg-gradient-to-r from-amulet-500 to-amulet-600 h-full rounded-full transition-all duration-500"
+                                        style={{ width: `${((currentIndex + 1) / totalExercises) * 100}%` }}
+                                    ></div>
+                                </div>
+                            </div>
+
+                            {/* Botón Siguiente */}
+                            <button
+                                onClick={handleNextExercise}
+                                disabled={!nextExercise}
+                                className={`flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold transition-all duration-300 
+                                    ${nextExercise 
+                                        ? 'bg-amulet-600 hover:bg-amulet-700 text-white shadow-md hover:shadow-xl hover:translate-x-1' 
+                                        : 'bg-amulet-100 text-amulet-400 cursor-not-allowed'
+                                    }
+                                    sm:px-6 sm:py-3`}
+                                aria-label="Ejercicio siguiente"
+                            >
+                                <span className="hidden sm:inline">Siguiente</span>
+                                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
                         </div>
                     )}
 
