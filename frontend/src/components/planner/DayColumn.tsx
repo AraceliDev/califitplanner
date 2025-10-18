@@ -38,9 +38,9 @@ export const DayColumn = ({ dayData, onDrop, onRemoveExercise }: DayColumnProps)
     const getRecommendationColor = () => {
         const count = exercises.length
         if (count === 0) return 'text-amulet-500'
-        if (count < 4) return 'text-yellow-600'
-        if (count >= 4 && count <= 10) return 'text-green-600'
-        return 'text-orange-600'
+        if (count < 4) return 'text-amulet-600'  // Amarillo/naranja suave
+        if (count >= 4 && count <= 10) return 'text-amulet-700'  // Verde óptimo
+        return 'text-amulet-600'  // Más de 10 ejercicios
     }
     const getWorkoutTypeFromExercises = (exercises: PlannerExercise[]) => {
         if (exercises.length === 0) return null
@@ -64,15 +64,15 @@ export const DayColumn = ({ dayData, onDrop, onRemoveExercise }: DayColumnProps)
 
     const getWorkoutTypeColor = (type: string) => {
         const colors = {
-            'push': 'bg-blue-100 text-blue-600',
-            'pull': 'bg-green-100 text-green-600',
-            'lower-body': 'bg-purple-100 text-purple-600',
-            'upper-body': 'bg-orange-100 text-orange-600',
-            'full-body': 'bg-red-100 text-red-600',
-            'core': 'bg-yellow-100 text-yellow-600',
-            'mixto': 'bg-gray-100 text-gray-600'
+            'push': 'bg-amulet-200 text-amulet-800',
+            'pull': 'bg-amulet-300 text-amulet-900',
+            'lower-body': 'bg-amulet-400 text-amulet-950',
+            'upper-body': 'bg-amulet-200 text-amulet-800',
+            'full-body': 'bg-amulet-300 text-amulet-900',
+            'core': 'bg-amulet-400 text-amulet-950',
+            'mixto': 'bg-amulet-200 text-amulet-800'
         }
-        return colors[type?.toLowerCase()] || 'bg-gray-100 text-gray-600'
+        return colors[type?.toLowerCase()] || 'bg-amulet-200 text-amulet-800'
     }
 
     return (
@@ -95,7 +95,7 @@ export const DayColumn = ({ dayData, onDrop, onRemoveExercise }: DayColumnProps)
             <Chip
                 size="sm"
                 variant="flat"
-                className={`${getRecommendationColor()} bg-transparent border-none text-xs w-fit`}
+                className={`${getRecommendationColor()} bg-amulet-100 font-medium text-xs w-fit`}
             >
                 {exercises.length} ejercicios
             </Chip>
@@ -109,8 +109,9 @@ export const DayColumn = ({ dayData, onDrop, onRemoveExercise }: DayColumnProps)
                     onDrop={handleDrop}
                 >
                     {exercises.length === 0 ? (
-                        <div className="flex-1 flex items-center justify-center text-amulet-500 text-sm border-2 border-dashed border-amulet-300 rounded-lg p-4">
-                            Arrastra ejercicios aquí
+                        <div className="flex-1 flex items-center justify-center text-amulet-500 text-sm border-2 border-dashed border-amulet-300 rounded-lg p-4 text-center">
+                            <span className="hidden lg:inline">Arrastra ejercicios aquí</span>
+                            <span className="lg:hidden">Selecciona ejercicios para este día</span>
                         </div>
                     ) : (
                         exercises.map((plannerExercise) => (

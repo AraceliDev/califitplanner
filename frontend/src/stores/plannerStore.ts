@@ -53,7 +53,7 @@ const usePlannerStore = create<PlannerState>((set, get) => ({
   selectedWorkout: null,
   selectedWeek: new Date(),
   weeklyPlan: initialWeeklyPlan,
-  levelFilter: null,
+  levelFilter: 'principiante',
 
   // ===== ACTIONS =====
   setSelectedWorkout: (workout: Workout | null) => {

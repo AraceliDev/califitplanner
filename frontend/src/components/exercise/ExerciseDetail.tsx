@@ -1,5 +1,6 @@
 import { Image } from "@heroui/image";
 import { useNavigate, useParams } from "react-router-dom";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@heroui/react";
 import useExerciseStore from '@/stores/exerciseStore';
 
 function ExerciseDetail() {
@@ -13,6 +14,8 @@ function ExerciseDetail() {
         getPreviousExercise,
         getCurrentExerciseIndex
     } = useExerciseStore();
+
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     const nextExercise = getNextExercise();
     const previousExercise = getPreviousExercise();
@@ -134,13 +137,23 @@ function ExerciseDetail() {
 
                         {/* Imagen del ejercicio */}
                         <div className="order-2 lg:order-1">
-                            <div className="relative overflow-hidden rounded-2xl shadow-2xl bg-white p-4">
+                            <div 
+                                className="relative overflow-hidden rounded-2xl shadow-2xl bg-white p-4 cursor-pointer hover:shadow-3xl transition-shadow duration-300"
+                                onClick={onOpen}
+                                title="Click para ampliar imagen"
+                            >
                                 <Image
                                     src={`../../../public/images/${selectedExercise.imagen}`}
                                     alt={selectedExercise.nombre}
                                     className="w-full h-auto rounded-xl object-cover"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-amulet-900/20 to-transparent rounded-2xl"></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-amulet-900/20 to-transparent rounded-2xl pointer-events-none"></div>
+                                {/* Indicador de que es clickeable */}
+                                <div className="absolute top-6 right-6 bg-amulet-600 text-white p-2 rounded-full shadow-lg opacity-0 hover:opacity-100 transition-opacity duration-200">
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                                    </svg>
+                                </div>
                             </div>
                         </div>
 
@@ -260,6 +273,41 @@ function ExerciseDetail() {
                     )}
                 </div>
             </div>
+
+            {/* Modal para ver la imagen ampliada */}
+            <Modal 
+                isOpen={isOpen} 
+                onClose={onClose} 
+                size="lg"
+                placement="center"
+                classNames={{
+                    base: "max-w-[600px]",
+                    body: "p-4"
+                }}
+            >
+                <ModalContent>
+                    <ModalHeader className="text-amulet-950 px-6 pt-6 pb-3">
+                        {selectedExercise.nombre}
+                    </ModalHeader>
+                    <ModalBody className="px-6 pb-6">
+                        <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-amulet-50">
+                            <Image
+                                src={`../../../public/images/${selectedExercise.imagen}`}
+                                alt={selectedExercise.nombre}
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                    </ModalBody>
+                    <ModalFooter className="px-6 pb-6">
+                        <Button 
+                            className="bg-amulet-600 text-white hover:bg-amulet-700"
+                            onPress={onClose}
+                        >
+                            Cerrar
+                        </Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
         </div>
     );
 }

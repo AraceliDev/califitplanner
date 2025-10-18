@@ -1,9 +1,9 @@
-import { Card, CardBody, Chip, Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from '@heroui/react'
+import { Card, CardBody, Chip, Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, Image } from '@heroui/react'
 import { useState, useEffect } from 'react'
 import usePlannerStore from '@/stores/plannerStore'
 import type { Exercise } from '@/types/workout'
 import type { WeeklyPlan } from '@/stores/plannerStore'
-import { IoMdAdd, IoMdCheckmark, IoMdStar } from 'react-icons/io'
+import { IoMdAdd, IoMdCheckmark, IoMdStar, IoMdEye } from 'react-icons/io'
 
 // Hook para detectar dispositivos móviles/tablets
 const useIsMobile = () => {
@@ -29,6 +29,7 @@ interface DraggableExerciseProps {
   isSelected?: boolean
   onToggle?: (exercise: Exercise, isSelected: boolean) => void
   isMobile?: boolean
+  onViewImage?: (exercise: Exercise) => void
 }
 
 const DraggableExercise = ({
@@ -36,7 +37,8 @@ const DraggableExercise = ({
   onDragStart,
   isSelected = false,
   onToggle,
-  isMobile = false
+  isMobile = false,
+  onViewImage
 }: DraggableExerciseProps) => {
   const cardClasses = isMobile
     ? "bg-amulet-50 hover:bg-amulet-100 transition-all duration-200 shadow-sm hover:shadow-md relative overflow-visible"
@@ -46,6 +48,13 @@ const DraggableExercise = ({
     e.stopPropagation()
     if (onToggle) {
       onToggle(exercise, !isSelected)
+    }
+  }
+
+  const handleViewImage = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    if (onViewImage) {
+      onViewImage(exercise)
     }
   }
 
@@ -91,7 +100,7 @@ const DraggableExercise = ({
             </button>
           </div>
 
-          {/* Rating con badge de estrella */}
+          {/* Rating con badge de estrella y botón de ojo */}
           <div className="flex items-center gap-2">
             <Chip
               size="sm"
@@ -101,6 +110,13 @@ const DraggableExercise = ({
             >
               5.0
             </Chip>
+            <button
+              onClick={handleViewImage}
+              className="flex items-center justify-center w-7 h-7 rounded-full bg-[#171f14] hover:bg-[#2a3526] text-white transition-all duration-200 shadow-sm hover:shadow-md"
+              title="Ver imagen del ejercicio"
+            >
+              <IoMdEye className="w-4 h-4" />
+            </button>
           </div>
 
           {/* Chips de información */}
@@ -182,11 +198,64 @@ const DaySelectionModal = ({ isOpen, onClose, onSelectDay, selectedExercises }: 
   )
 }
 
+// Modal para ver la imagen del ejercicio
+interface ExerciseImageModalProps {
+  isOpen: boolean
+  onClose: () => void
+  exercise: Exercise | null
+}
+
+const ExerciseImageModal = ({ isOpen, onClose, exercise }: ExerciseImageModalProps) => {
+  if (!exercise) return null
+
+  return (
+    <Modal 
+      isOpen={isOpen} 
+      onClose={onClose} 
+      size="lg"
+      placement="center"
+      classNames={{
+        base: "max-w-[600px]",
+        body: "p-4"
+      }}
+    >
+      <ModalContent>
+        <ModalHeader className="text-amulet-950 px-6 pt-6 pb-3">
+          {exercise.nombre}
+        </ModalHeader>
+        <ModalBody className="px-6 pb-6">
+          <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-amulet-50">
+            <Image
+              src={`../../../public/images/${exercise.imagen}`}
+              alt={exercise.nombre}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </ModalBody>
+        <ModalFooter className="px-6 pb-6">
+          <Button 
+            className="bg-amulet-600 text-white hover:bg-amulet-700"
+            onPress={onClose}
+          >
+            Cerrar
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  )
+}
+
 const ExerciseList = () => {
   const { selectedWorkout, addExerciseToDay } = usePlannerStore()
   const isMobile = useIsMobile()
   const [selectedExercises, setSelectedExercises] = useState<Exercise[]>([])
+  const [exerciseToView, setExerciseToView] = useState<Exercise | null>(null)
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { 
+    isOpen: isImageModalOpen, 
+    onOpen: onImageModalOpen, 
+    onClose: onImageModalClose 
+  } = useDisclosure()
 
   const handleDragStart = (e: React.DragEvent, exercise: Exercise) => {
     e.dataTransfer.setData('application/json', JSON.stringify(exercise))
@@ -201,6 +270,11 @@ const ExerciseList = () => {
         return prev.filter(ex => ex.id !== exercise.id)
       }
     })
+  }
+
+  const handleViewImage = (exercise: Exercise) => {
+    setExerciseToView(exercise)
+    onImageModalOpen()
   }
 
   const handleAddToDay = (day: keyof WeeklyPlan) => {
@@ -295,9 +369,17 @@ const ExerciseList = () => {
             isSelected={selectedExercises.some(ex => ex.id === exercise.id)}
             onToggle={handleExerciseToggle}
             isMobile={isMobile}
+            onViewImage={handleViewImage}
           />
         ))}
       </div>
+
+      {/* Modal para ver imagen del ejercicio */}
+      <ExerciseImageModal
+        isOpen={isImageModalOpen}
+        onClose={onImageModalClose}
+        exercise={exerciseToView}
+      />
 
       {/* Modal para seleccionar día */}
       <DaySelectionModal
