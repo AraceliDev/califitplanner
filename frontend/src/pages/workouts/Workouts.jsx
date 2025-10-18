@@ -1,16 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import WorkoutCard from '@/components/workout/WorkoutCard'
 import workoutStore from '@/stores/workoutStore'
 
 function Workouts() {
-    const { workouts, fetchWorkouts } = workoutStore()
+    const { workouts, fetchWorkouts, currentLevel, setCurrentLevel } = workoutStore()
+    
     useEffect(() => {
         fetchWorkouts()
     }, [fetchWorkouts])
-    const [selectedLevel, setSelectedLevel] = useState('principiante')
+
     const levels = ['principiante', 'intermedio', 'avanzado']
+    
     const filteredWorkouts = workouts.filter(workout => {
-        const matchLevel = workout.level === selectedLevel
+        const matchLevel = workout.level === currentLevel
         return matchLevel
     })
     return (
@@ -33,9 +35,9 @@ function Workouts() {
                             {levels.map(level => (
                                 <button
                                     key={level}
-                                    onClick={() => setSelectedLevel(level)}
+                                    onClick={() => setCurrentLevel(level)}
                                     className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200
-                            ${selectedLevel === level
+                            ${currentLevel === level
                                             ? 'bg-amulet-600 text-white shadow-md'
                                             : 'bg-white text-amulet-700 hover:bg-amulet-100'
                                         }`}

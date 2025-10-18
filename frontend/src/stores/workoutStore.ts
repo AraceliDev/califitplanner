@@ -24,6 +24,7 @@ interface WorkoutState {
     fetchWorkoutsByTypeAndLevel: (type: Workout['type'], level: Workout['level']) => Promise<void>
     fetchAvailableTypes: () => Promise<void>
     fetchAvailableLevels: () => Promise<void>
+    setCurrentLevel: (level: Workout['level']) => void
     clearSelectedWorkout: () => void
     clearFilters: () => void
     clearError: () => void
@@ -39,7 +40,7 @@ const useWorkoutStore = create<WorkoutState>((set, get) => ({
     error: null,
 
     currentType: null,
-    currentLevel: null,
+    currentLevel: 'principiante', // Valor por defecto
 
     availableTypes: [],
     availableLevels: [],
@@ -203,10 +204,12 @@ const useWorkoutStore = create<WorkoutState>((set, get) => ({
 
     clearSelectedWorkout: () => set({ selectedWorkout: null }),
 
+    setCurrentLevel: (level: Workout['level']) => set({ currentLevel: level }),
+
     clearFilters: () => {
         set({
             currentType: null,
-            currentLevel: null
+            currentLevel: 'principiante'
         })
         get().fetchWorkouts()
     },

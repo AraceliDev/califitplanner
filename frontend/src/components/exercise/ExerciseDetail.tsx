@@ -118,23 +118,23 @@ function ExerciseDetail() {
 
                     {/* Hero Section con título y descripción */}
                     <div className="text-center mb-12">
-                        <h1 className="text-4xl font-extrabold text-amulet-950 mb-4 sm:text-5xl lg:text-6xl">
+                        <h1 className="text-3xl font-extrabold text-amulet-950 mb-4 sm:text-4xl lg:text-5xl">
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-amulet-600 to-amulet-400">
                                 {selectedExercise.nombre}
                             </span>
                         </h1>
                         <div className="w-24 h-1 bg-gradient-to-r from-amulet-400 to-amulet-600 mx-auto mb-6 rounded-full"></div>
-                        <p className="text-lg text-amulet-700 max-w-3xl mx-auto leading-relaxed lg:text-xl">
+                        <p className="text-base text-amulet-700 max-w-3xl mx-auto leading-relaxed lg:text-lg">
                             {selectedExercise.descripcion}
                         </p>
                     </div>
 
                     {/* Layout responsive con imagen y stats - Simétrico */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-[370px_1fr] gap-8 lg:gap-12 mb-12 items-start">
 
                         {/* Imagen del ejercicio */}
                         <div className="order-2 lg:order-1">
-                            <div className="relative overflow-hidden rounded-2xl shadow-2xl bg-white p-4 h-full flex items-center">
+                            <div className="relative overflow-hidden rounded-2xl shadow-2xl bg-white p-4">
                                 <Image
                                     src={`../../../public/images/${selectedExercise.imagen}`}
                                     alt={selectedExercise.nombre}
@@ -145,7 +145,7 @@ function ExerciseDetail() {
                         </div>
 
                         {/* Stats cards */}
-                        <div className="order-1 lg:order-2 h-full flex items-center">
+                        <div className="order-1 lg:order-2">
                             <div className="w-full space-y-4">
                                 <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-4">
                                     <div className="bg-white/70 backdrop-blur-sm p-6 rounded-xl border border-amulet-200/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
