@@ -4,22 +4,28 @@ import Carousel from "@/components/common/Carousel";
 import CustomSelect from "@/components/common/CustomSelect ";
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import workoutStore from '@/stores/workoutStore'
 
 function Home() {
     const navigate = useNavigate()
     const [selectedLevel, setSelectedLevel] = useState(null)
+    const { setCurrentLevel } = workoutStore()
 
     const handleCreateRoutine = () => {
         navigate('/rutinas')
     };
 
     const handleWorkouts = () => {
+        if (selectedLevel) {
+            // Actualizar el nivel en el store antes de navegar
+            setCurrentLevel(selectedLevel)
+        }
         navigate('/workouts')
     };
 
     const handleLevelSelect = (level) => {
         setSelectedLevel(level)
-        // Ya no navega automáticamente
+        // Solo actualiza el estado local, NO navega automáticamente
     };
 
     const levelOptions = [

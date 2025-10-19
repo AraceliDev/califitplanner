@@ -7,13 +7,23 @@ import Button from '@/components/common/Button';
 function Exercise() {
     const { workoutId, exerciseId } = useParams();
     const navigate = useNavigate();
-    const { selectedExercise, fetchSpecificExercise, loading, error } = useExerciseStore();
+    const { 
+        selectedExercise, 
+        exercises,
+        fetchSpecificExercise, 
+        fetchExercisesByWorkout,
+        loading, 
+        error 
+    } = useExerciseStore();
 
     useEffect(() => {
         if (workoutId && exerciseId) {
+            // Cargar todos los ejercicios del workout para navegación
+            fetchExercisesByWorkout(workoutId);
+            // Cargar el ejercicio específico
             fetchSpecificExercise(workoutId, parseInt(exerciseId));
         }
-    }, [workoutId, exerciseId, fetchSpecificExercise]);
+    }, [workoutId, exerciseId, fetchSpecificExercise, fetchExercisesByWorkout]);
 
     const handleGoBack = () => {
         navigate(`/workouts/${workoutId}`);
