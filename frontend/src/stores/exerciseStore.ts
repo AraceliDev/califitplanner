@@ -22,6 +22,10 @@ interface ExerciseState {
     searchExercises: (searchTerm: string) => Promise<void>
     setSelectedExercise: (exercise: Exercise | null) => void
 
+    // Navigation
+    getNextExercise: () => Exercise | null
+    getPreviousExercise: () => Exercise | null
+    getCurrentExerciseIndex: () => number
 
     // Utilidades
     clearError: () => void
@@ -126,6 +130,33 @@ const useExerciseStore = create<ExerciseState>((set, get) => ({
 
     setSelectedExercise: (exercise: Exercise | null) => {
         set({ selectedExercise: exercise })
+    },
+
+    // ===== NAVIGATION =====
+    getNextExercise: () => {
+        const { exercises, selectedExercise } = get()
+        if (!selectedExercise || exercises.length === 0) return null
+        
+        const currentIndex = exercises.findIndex(ex => ex.id === selectedExercise.id)
+        if (currentIndex === -1 || currentIndex === exercises.length - 1) return null
+        
+        return exercises[currentIndex + 1]
+    },
+
+    getPreviousExercise: () => {
+        const { exercises, selectedExercise } = get()
+        if (!selectedExercise || exercises.length === 0) return null
+        
+        const currentIndex = exercises.findIndex(ex => ex.id === selectedExercise.id)
+        if (currentIndex === -1 || currentIndex === 0) return null
+        
+        return exercises[currentIndex - 1]
+    },
+
+    getCurrentExerciseIndex: () => {
+        const { exercises, selectedExercise } = get()
+        if (!selectedExercise || exercises.length === 0) return -1
+        return exercises.findIndex(ex => ex.id === selectedExercise.id)
     },
 
     clearError: () => set({ error: null }),

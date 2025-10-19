@@ -38,9 +38,9 @@ export const DayColumn = ({ dayData, onDrop, onRemoveExercise }: DayColumnProps)
     const getRecommendationColor = () => {
         const count = exercises.length
         if (count === 0) return 'text-amulet-500'
-        if (count < 4) return 'text-yellow-600'
-        if (count >= 4 && count <= 10) return 'text-green-600'
-        return 'text-orange-600'
+        if (count < 4) return 'text-amulet-600'  // Amarillo/naranja suave
+        if (count >= 4 && count <= 10) return 'text-amulet-700'  // Verde óptimo
+        return 'text-amulet-600'  // Más de 10 ejercicios
     }
     const getWorkoutTypeFromExercises = (exercises: PlannerExercise[]) => {
         if (exercises.length === 0) return null
@@ -64,43 +64,44 @@ export const DayColumn = ({ dayData, onDrop, onRemoveExercise }: DayColumnProps)
 
     const getWorkoutTypeColor = (type: string) => {
         const colors = {
-            'push': 'bg-blue-100 text-blue-600',
-            'pull': 'bg-green-100 text-green-600',
-            'lower-body': 'bg-purple-100 text-purple-600',
-            'upper-body': 'bg-orange-100 text-orange-600',
-            'full-body': 'bg-red-100 text-red-600',
-            'core': 'bg-yellow-100 text-yellow-600',
-            'mixto': 'bg-gray-100 text-gray-600'
+            'push': 'bg-amulet-200 text-amulet-800',
+            'pull': 'bg-amulet-300 text-amulet-900',
+            'lower-body': 'bg-amulet-400 text-amulet-950',
+            'upper-body': 'bg-amulet-200 text-amulet-800',
+            'full-body': 'bg-amulet-300 text-amulet-900',
+            'core': 'bg-amulet-400 text-amulet-950',
+            'mixto': 'bg-amulet-200 text-amulet-800'
         }
-        return colors[type?.toLowerCase()] || 'bg-gray-100 text-gray-600'
+        return colors[type?.toLowerCase()] || 'bg-amulet-200 text-amulet-800'
     }
 
     return (
         <div className="flex flex-col h-full p-1">
             <Card className="flex-1 h-full">
                 <CardHeader className="pb-2">
-                    <div className="w-full">
-                        <div className="flex justify-between items-center">
-                            <h3 className="text-sm font-medium text-amulet-950">{dayLabel}</h3>
-                            <span className="text-xs text-amulet-600">{date}</span>
-                        </div>
-                        <div className="flex justify-between items-center mt-1">
-                            <Chip
-                                size="sm"
-                                variant="flat"
-                                className={`${getRecommendationColor()} bg-transparent border-none text-xs`}
-                            >
-                                {exercises.length} ejercicios
-                            </Chip>
-                            {/* Nuevo tag de tipo de workout */}
-                            {getWorkoutTypeFromExercises(exercises) && (
-                                <span className={`text-xs px-2 py-1 rounded-full ${getWorkoutTypeColor(getWorkoutTypeFromExercises(exercises))}`}>
-                                    {getWorkoutTypeLabel(getWorkoutTypeFromExercises(exercises))}
-                                </span>
-                            )}
-                        </div>
-                    </div>
-                </CardHeader>
+    <div className="w-full">
+        <div className="flex justify-between items-center">
+            <h3 className="text-sm font-medium text-amulet-950">{dayLabel}</h3>
+            <span className="text-xs text-amulet-600">{date}</span>
+        </div>
+        <div className="flex flex-col gap-1 mt-1">
+            {/* Tipo de workout primero */}
+            {getWorkoutTypeFromExercises(exercises) && (
+                <span className={`text-xs px-2 py-1 rounded-full w-fit ${getWorkoutTypeColor(getWorkoutTypeFromExercises(exercises))}`}>
+                    {getWorkoutTypeLabel(getWorkoutTypeFromExercises(exercises))}
+                </span>
+            )}
+            {/* Número de ejercicios debajo */}
+            <Chip
+                size="sm"
+                variant="flat"
+                className={`${getRecommendationColor()} bg-amulet-100 font-medium text-xs w-fit`}
+            >
+                {exercises.length} ejercicios
+            </Chip>
+        </div>
+    </div>
+</CardHeader>
 
                 <CardBody
                     className="pt-0 min-h-[200px] space-y-2"
@@ -108,8 +109,9 @@ export const DayColumn = ({ dayData, onDrop, onRemoveExercise }: DayColumnProps)
                     onDrop={handleDrop}
                 >
                     {exercises.length === 0 ? (
-                        <div className="flex-1 flex items-center justify-center text-amulet-500 text-sm border-2 border-dashed border-amulet-300 rounded-lg p-4">
-                            Arrastra ejercicios aquí
+                        <div className="flex-1 flex items-center justify-center text-amulet-500 text-sm border-2 border-dashed border-amulet-300 rounded-lg p-4 text-center">
+                            <span className="hidden lg:inline">Arrastra ejercicios aquí</span>
+                            <span className="lg:hidden">Selecciona ejercicios para este día</span>
                         </div>
                     ) : (
                         exercises.map((plannerExercise) => (

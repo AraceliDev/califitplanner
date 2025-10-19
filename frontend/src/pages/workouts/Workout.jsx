@@ -73,14 +73,14 @@ function Workout() {
 
           {/* Lista de ejercicios */}
           <div className="mb-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl md:max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 w-full">
               {selectedWorkout.exercises && selectedWorkout.exercises.length > 0 ? (
                 selectedWorkout.exercises.map((exercise, index) => (
                   <ExerciseCard key={exercise.id || index} exercise={exercise} workoutId={id} />
                 ))
               ) : (
-                <div className="bg-amulet-100 p-4 rounded-lg border border-amulet-100">
-                  <p className="text-amulet-600">No hay ejercicios disponibles para este workout.</p>
+                <div className="col-span-full bg-amulet-100 p-6 rounded-lg border border-amulet-200">
+                  <p className="text-amulet-700 text-center text-lg">No hay ejercicios disponibles para este workout.</p>
                 </div>
               )}
             </div>

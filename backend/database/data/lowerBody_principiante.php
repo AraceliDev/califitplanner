@@ -24,7 +24,7 @@ return [
                         'Mantén la espalda recta durante todo el movimiento'
                     ]
                 ],
-                // 'imagen' => 'exercises/lower-body/bodyweight-squats.png',
+                'imagen' => 'exercises/lower-body/squat-classic.png',
                 'repeticiones' => 12,
                 'series' => 3,
                 'descanso' => 60
@@ -47,7 +47,7 @@ return [
                         'La rodilla delantera no debe sobrepasar la punta del pie'
                     ]
                 ],
-                // 'imagen' => 'exercises/lower-body/static-lunges.png',
+                'imagen' => 'exercises/lower-body/lunge.png',
                 'repeticiones' => 8,
                 'series' => 3,
                 'descanso' => 60
@@ -70,7 +70,7 @@ return [
                         'Presiona con los talones para mayor activación'
                     ]
                 ],
-                // 'imagen' => 'exercises/lower-body/glute-bridges.png',
+                'imagen' => 'exercises/lower-body/puente.png',
                 'repeticiones' => 15,
                 'series' => 3,
                 'descanso' => 45
@@ -93,7 +93,7 @@ return [
                         'Mantén el peso distribuido en toda la planta del pie'
                     ]
                 ],
-                // 'imagen' => 'exercises/lower-body/sumo-squats.png',
+                'imagen' => 'exercises/lower-body/sumo-squat.png',
                 'repeticiones' => 10,
                 'series' => 3,
                 'descanso' => 60

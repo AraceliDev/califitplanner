@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Button, Tooltip } from '@heroui/react'
+import { Tooltip } from '@heroui/react'
 import WorkoutSelector from '@/components/planner/WorkoutSelector'
 import ExerciseList from '@/components/planner/ExerciseList'
 import WeekSelector from '@/components/planner/WeekSelector'
@@ -7,10 +7,18 @@ import WeeklyPlanner from '@/components/planner/WeeklyPlanner'
 import PDFGenerator from '@/components/planner/PDFGenerator'
 import usePlannerStore from '@/stores/plannerStore'
 import Stepper from '@/components/planner/Stepper'
+import Button from "@/components/common/Button";
 
 function Rutinas() {
   const [currentStep, setCurrentStep] = useState(1)
-  const { selectedWorkout, weeklyPlan } = usePlannerStore()
+  const { 
+    selectedWorkout, 
+    weeklyPlan, 
+    setSelectedWorkout, 
+    clearWeeklyPlan,
+    setLevelFilter,
+    setSelectedDayForMobile
+  } = usePlannerStore()
 
   // Función para hacer scroll al inicio cuando cambia el paso
   const handleStepChange = (newStep) => {
@@ -20,6 +28,18 @@ function Rutinas() {
       top: 0,
       behavior: 'smooth'
     })
+  }
+
+  // Función para reiniciar toda la rutina
+  const handleNewRoutine = () => {
+    // Limpiar todos los estados del planner
+    setSelectedWorkout(null)
+    clearWeeklyPlan()
+    setLevelFilter('principiante')
+    setSelectedDayForMobile(null)
+    
+    // Volver al paso 1
+    handleStepChange(1)
   }
 
   const steps = [
@@ -46,26 +66,46 @@ function Rutinas() {
           </div>
         )
       case 3:
-        return (
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            <div className="lg:col-span-1">
-              <ExerciseList />
-              <div className="text-center mt-4">
-                <Button
-                  color="primary"
-                  variant="bordered"
-                  onClick={() => handleStepChange(2)}
-                  className="border-amulet-600 text-amulet-600 hover:bg-amulet-50"
-                >
-                  + Añadir nuevo Workout
-                </Button>
-              </div>
-            </div>
-            <div className="lg:col-span-3">
-              <WeeklyPlanner />
-            </div>
+  // Verificar si hay ejercicios en algún día del calendario
+  const hasExercisesInCalendar = Object.values(weeklyPlan).some(day => day.length > 0)
+  
+  return (
+    <div className="space-y-6">
+      {/* En móvil/tablet: primero el calendario, luego ejercicios */}
+      <div className="lg:hidden space-y-6">
+        <WeeklyPlanner />
+        <ExerciseList />
+        {hasExercisesInCalendar && (
+          <div className="text-center">
+            <Button
+              type="secundario" 
+              onClick={() => handleStepChange(2)}
+              text="+ Añadir nuevo Workout"
+            />
           </div>
-        )
+        )}
+      </div>
+
+      {/* En desktop: layout original con columnas */}
+      <div className="hidden lg:grid lg:grid-cols-4 gap-6">
+        <div className="lg:col-span-1">
+          <ExerciseList />
+          {hasExercisesInCalendar && (
+            <div className="text-center mt-4">
+              <Button
+                type="secundario" 
+                onClick={() => handleStepChange(2)}
+                text="+ Añadir nuevo Workout"
+              />
+            </div>
+          )}
+        </div>
+        <div className="lg:col-span-3">
+          <WeeklyPlanner />
+        </div>
+      </div>
+    </div>
+  )
       case 4:
         return (
           <div className="text-center space-y-6">
@@ -90,7 +130,7 @@ function Rutinas() {
 
     const canGoNext = () => {
       switch (currentStep) {
-        case 1: return true 
+        case 1: return true
         case 2: return selectedWorkout !== null
         case 3: return hasExercises
         default: return true
@@ -118,14 +158,11 @@ function Rutinas() {
     return (
       <div className="flex justify-between mt-8">
         <Button
+          type="secundario"
           onClick={() => handleStepChange(currentStep - 1)}
           disabled={!canGoPrev}
-          variant="ghost"
-          className="text-amulet-600"
-        >
-          ← Anterior
-        </Button>
-
+          text="← Anterior"
+        />
         {currentStep < 4 && (
           <>
             {showTooltip ? (
@@ -136,36 +173,32 @@ function Rutinas() {
               >
                 <div>
                   <Button
+                    type="primario"
                     onClick={() => handleStepChange(currentStep + 1)}
                     disabled={!canGoNextStep}
-                    color="success"
-                    className="bg-amulet-600 hover:bg-amulet-700"
-                  >
-                    {currentStep === 3 ? 'Finalizar' : 'Siguiente →'}
-                  </Button>
+                    text={currentStep === 3 ? 'Finalizar' : 'Siguiente →'}
+                  />
                 </div>
               </Tooltip>
             ) : (
+
               <Button
+                type="primario"
                 onClick={() => handleStepChange(currentStep + 1)}
                 disabled={!canGoNextStep}
-                color="success"
-                className="bg-amulet-600 hover:bg-amulet-700"
-              >
-                {currentStep === 3 ? 'Finalizar' : 'Siguiente →'}
-              </Button>
+                text={currentStep === 3 ? 'Finalizar' : 'Siguiente →'}
+              />
             )}
           </>
         )}
 
         {currentStep === 4 && (
           <Button
-            onClick={() => handleStepChange(1)}
+            type="secundario" 
+            onClick={handleNewRoutine}
             variant="ghost"
-            className="text-amulet-600"
-          >
-            Nueva rutina
-          </Button>
+            text="Nueva rutina"
+          />
         )}
       </div>
     )

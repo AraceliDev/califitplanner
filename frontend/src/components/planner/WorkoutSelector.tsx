@@ -29,8 +29,13 @@ const WorkoutSelector = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        await fetchWorkouts()
         await fetchAvailableLevels()
+        // Cargar workouts del nivel por defecto (principiante)
+        if (levelFilter) {
+          await fetchWorkoutsByLevel(levelFilter as Workout['level'])
+        } else {
+          await fetchWorkouts()
+        }
       } catch (error) {
         console.error('Error loading workout data:', error)
       }
@@ -73,45 +78,6 @@ const WorkoutSelector = () => {
     return labels[level] || level
   }
 
-  const DumbbellIcons = ({ level }: { level: Workout['level'] }) => {
-    const getDumbbellCount = (level: Workout['level']) => {
-      switch (level) {
-        case 'principiante': return 1
-        case 'intermedio': return 2
-        case 'avanzado': return 3
-        default: return 1
-      }
-    }
-
-    const getIconColor = (level: Workout['level']) => {
-      switch (level) {
-        case 'principiante': return 'text-green-500'
-        case 'intermedio': return 'text-yellow-500'
-        case 'avanzado': return 'text-red-500'
-        default: return 'text-gray-500'
-      }
-    }
-
-    const count = getDumbbellCount(level)
-    const colorClass = getIconColor(level)
-
-    return (
-      <div className={`flex items-center gap-0.5 ${colorClass}`}>
-        {Array.from({ length: count }, (_, i) => (
-          <svg
-            key={i}
-            className="w-4 h-4"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22 14.86 20.57 16.29 22 18.43 19.86 19.86 21.29 21.29 19.86l-1.43-1.43L22 16.29 20.57 14.86z"/>
-          </svg>
-        ))}
-      </div>
-    )
-  }
-
   return (
     <div className="space-y-4">
       <h2 className="text-xl font-semibold text-amulet-950">WORKOUTS</h2>
@@ -145,15 +111,6 @@ const WorkoutSelector = () => {
         <>
           {/* Filtros por nivel */}
           <div className="flex gap-2 flex-wrap">
-            <Button
-              size="sm"
-              variant={!levelFilter ? 'solid' : 'ghost'}
-              color={!levelFilter ? 'success' : 'default'}
-              onClick={() => handleLevelFilter(null)}
-              className={!levelFilter ? 'bg-amulet-600 text-white' : 'text-amulet-700'}
-            >
-              Todos
-            </Button>
             {levelsToShow && levelsToShow.length > 0 && levelsToShow.map((level) => (
               <Button
                 key={level}
@@ -204,7 +161,6 @@ const WorkoutSelector = () => {
                           </div>
                         )}
                       </div>
-                      <DumbbellIcons level={workout.level} />
                     </CardFooter>
                   </Card>
                 )

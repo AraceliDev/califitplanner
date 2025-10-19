@@ -1,8 +1,38 @@
 import { Image } from "@heroui/image";
+import { useNavigate, useParams } from "react-router-dom";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@heroui/react";
 import useExerciseStore from '@/stores/exerciseStore';
 
 function ExerciseDetail() {
-    const { selectedExercise, currentWorkoutName } = useExerciseStore();
+    const navigate = useNavigate();
+    const { workoutId } = useParams();
+    const { 
+        selectedExercise, 
+        currentWorkoutName,
+        exercises,
+        getNextExercise,
+        getPreviousExercise,
+        getCurrentExerciseIndex
+    } = useExerciseStore();
+
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const nextExercise = getNextExercise();
+    const previousExercise = getPreviousExercise();
+    const currentIndex = getCurrentExerciseIndex();
+    const totalExercises = exercises.length;
+
+    const handleNextExercise = () => {
+        if (nextExercise && workoutId) {
+            navigate(`/workouts/${workoutId}/exercises/${nextExercise.id}`);
+        }
+    };
+
+    const handlePreviousExercise = () => {
+        if (previousExercise && workoutId) {
+            navigate(`/workouts/${workoutId}/exercises/${previousExercise.id}`);
+        }
+    };
 
     if (!selectedExercise) {
         return (
@@ -35,36 +65,100 @@ function ExerciseDetail() {
                         </div>
                     )}
 
+                    {/* Navegación entre ejercicios */}
+                    {totalExercises > 0 && (
+                        <div className="flex items-center justify-between mb-8 gap-4">
+                            {/* Botón Anterior */}
+                            <button
+                                onClick={handlePreviousExercise}
+                                disabled={!previousExercise}
+                                className={`flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold transition-all duration-300 
+                                    ${previousExercise 
+                                        ? 'bg-amulet-600 hover:bg-amulet-700 text-white shadow-md hover:shadow-xl hover:-translate-x-1' 
+                                        : 'bg-amulet-100 text-amulet-400 cursor-not-allowed'
+                                    }
+                                    sm:px-6 sm:py-3`}
+                                aria-label="Ejercicio anterior"
+                            >
+                                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                </svg>
+                                <span className="hidden sm:inline">Anterior</span>
+                            </button>
+
+                            {/* Indicador de progreso */}
+                            <div className="flex flex-col items-center gap-1 flex-1">
+                                <span className="text-sm text-amulet-600 font-medium">
+                                    Ejercicio {currentIndex + 1} de {totalExercises}
+                                </span>
+                                <div className="w-full max-w-xs bg-amulet-200 rounded-full h-2 overflow-hidden">
+                                    <div 
+                                        className="bg-gradient-to-r from-amulet-500 to-amulet-600 h-full rounded-full transition-all duration-500"
+                                        style={{ width: `${((currentIndex + 1) / totalExercises) * 100}%` }}
+                                    ></div>
+                                </div>
+                            </div>
+
+                            {/* Botón Siguiente */}
+                            <button
+                                onClick={handleNextExercise}
+                                disabled={!nextExercise}
+                                className={`flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold transition-all duration-300 
+                                    ${nextExercise 
+                                        ? 'bg-amulet-600 hover:bg-amulet-700 text-white shadow-md hover:shadow-xl hover:translate-x-1' 
+                                        : 'bg-amulet-100 text-amulet-400 cursor-not-allowed'
+                                    }
+                                    sm:px-6 sm:py-3`}
+                                aria-label="Ejercicio siguiente"
+                            >
+                                <span className="hidden sm:inline">Siguiente</span>
+                                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                        </div>
+                    )}
+
                     {/* Hero Section con título y descripción */}
                     <div className="text-center mb-12">
-                        <h1 className="text-4xl font-extrabold text-amulet-950 mb-4 sm:text-5xl lg:text-6xl">
+                        <h1 className="text-3xl font-extrabold text-amulet-950 mb-4 sm:text-4xl lg:text-5xl">
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-amulet-600 to-amulet-400">
                                 {selectedExercise.nombre}
                             </span>
                         </h1>
                         <div className="w-24 h-1 bg-gradient-to-r from-amulet-400 to-amulet-600 mx-auto mb-6 rounded-full"></div>
-                        <p className="text-lg text-amulet-700 max-w-3xl mx-auto leading-relaxed lg:text-xl">
+                        <p className="text-base text-amulet-700 max-w-3xl mx-auto leading-relaxed lg:text-lg">
                             {selectedExercise.descripcion}
                         </p>
                     </div>
 
                     {/* Layout responsive con imagen y stats - Simétrico */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-[370px_1fr] gap-8 lg:gap-12 mb-12 items-start">
 
                         {/* Imagen del ejercicio */}
                         <div className="order-2 lg:order-1">
-                            <div className="relative overflow-hidden rounded-2xl shadow-2xl bg-white p-4 h-full flex items-center">
+                            <div 
+                                className="relative overflow-hidden rounded-2xl shadow-2xl bg-white p-4 cursor-pointer hover:shadow-3xl transition-shadow duration-300"
+                                onClick={onOpen}
+                                title="Click para ampliar imagen"
+                            >
                                 <Image
-                                    src="/images/pushupbench.png"
+                                    src={`../../../public/images/${selectedExercise.imagen}`}
                                     alt={selectedExercise.nombre}
                                     className="w-full h-auto rounded-xl object-cover"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-amulet-900/20 to-transparent rounded-2xl"></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-amulet-900/20 to-transparent rounded-2xl pointer-events-none"></div>
+                                {/* Indicador de que es clickeable */}
+                                <div className="absolute top-6 right-6 bg-amulet-600 text-white p-2 rounded-full shadow-lg opacity-0 hover:opacity-100 transition-opacity duration-200">
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                                    </svg>
+                                </div>
                             </div>
                         </div>
 
                         {/* Stats cards */}
-                        <div className="order-1 lg:order-2 h-full flex items-center">
+                        <div className="order-1 lg:order-2">
                             <div className="w-full space-y-4">
                                 <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-4">
                                     <div className="bg-white/70 backdrop-blur-sm p-6 rounded-xl border border-amulet-200/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
@@ -179,6 +273,42 @@ function ExerciseDetail() {
                     )}
                 </div>
             </div>
+
+            {/* Modal para ver la imagen ampliada */}
+            <Modal 
+                isOpen={isOpen} 
+                onClose={onClose} 
+                size="lg"
+                placement="center"
+                hideCloseButton={true}
+                classNames={{
+                    base: "max-w-[600px]",
+                    body: "p-4"
+                }}
+            >
+                <ModalContent>
+                    <ModalHeader className="text-amulet-950 px-6 pt-6 pb-3">
+                        {selectedExercise.nombre}
+                    </ModalHeader>
+                    <ModalBody className="px-6 pb-6">
+                        <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-amulet-50">
+                            <Image
+                                src={`../../../public/images/${selectedExercise.imagen}`}
+                                alt={selectedExercise.nombre}
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                    </ModalBody>
+                    <ModalFooter className="px-6 pb-6">
+                        <Button 
+                            className="bg-amulet-600 text-white hover:bg-amulet-700"
+                            onPress={onClose}
+                        >
+                            Cerrar
+                        </Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
         </div>
     );
 }
