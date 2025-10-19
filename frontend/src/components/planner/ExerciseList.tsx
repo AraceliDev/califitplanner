@@ -4,6 +4,7 @@ import usePlannerStore from '@/stores/plannerStore'
 import type { Exercise } from '@/types/workout'
 import type { WeeklyPlan } from '@/stores/plannerStore'
 import { IoMdAdd, IoMdCheckmark, IoMdStar, IoMdEye } from 'react-icons/io'
+import toast from 'react-hot-toast'
 
 // Hook para detectar dispositivos móviles/tablets
 const useIsMobile = () => {
@@ -30,6 +31,8 @@ interface DraggableExerciseProps {
   onToggle?: (exercise: Exercise, isSelected: boolean) => void
   isMobile?: boolean
   onViewImage?: (exercise: Exercise) => void
+  isAdded?: boolean
+  isAddedToDay?: boolean
 }
 
 const DraggableExercise = ({
@@ -38,7 +41,9 @@ const DraggableExercise = ({
   isSelected = false,
   onToggle,
   isMobile = false,
-  onViewImage
+  onViewImage,
+  isAdded = false,
+  isAddedToDay = false
 }: DraggableExerciseProps) => {
   const cardClasses = isMobile
     ? "bg-amulet-50 hover:bg-amulet-100 transition-all duration-200 shadow-sm hover:shadow-md relative overflow-visible"
@@ -46,6 +51,9 @@ const DraggableExercise = ({
 
   const handleToggleClick = (e: React.MouseEvent) => {
     e.stopPropagation()
+    // Si ya está añadido al día, no hacer nada
+    if (isAddedToDay) return
+    
     if (onToggle) {
       onToggle(exercise, !isSelected)
     }
@@ -82,17 +90,20 @@ const DraggableExercise = ({
             {/* Botón circular de agregar/check - Solo visible en móvil/tablet */}
             <button
               onClick={handleToggleClick}
+              disabled={isAddedToDay}
               className={`
                 flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center
-                transition-all duration-200 shadow-md hover:shadow-lg
+                transition-all duration-200 shadow-md
                 lg:hidden
-                ${isSelected
-                  ? 'bg-amulet-600 text-white scale-110'
-                  : 'bg-[#171f14] text-white hover:scale-110'
+                ${isAddedToDay
+                  ? 'bg-amulet-700 text-white cursor-not-allowed'
+                  : isAdded
+                    ? 'bg-amulet-600 text-white scale-110 animate-pulse'
+                    : 'bg-[#171f14] text-white hover:scale-110 hover:shadow-lg'
                 }
               `}
             >
-              {isSelected ? (
+              {isAddedToDay || isAdded ? (
                 <IoMdCheckmark className="w-4 h-4" />
               ) : (
                 <IoMdAdd className="w-4 h-4" />
@@ -246,10 +257,11 @@ const ExerciseImageModal = ({ isOpen, onClose, exercise }: ExerciseImageModalPro
 }
 
 const ExerciseList = () => {
-  const { selectedWorkout, addExerciseToDay } = usePlannerStore()
+  const { selectedWorkout, addExerciseToDay, selectedDayForMobile, weeklyPlan, setSelectedDayForMobile } = usePlannerStore()
   const isMobile = useIsMobile()
   const [selectedExercises, setSelectedExercises] = useState<Exercise[]>([])
   const [exerciseToView, setExerciseToView] = useState<Exercise | null>(null)
+  const [addedExercises, setAddedExercises] = useState<Set<string>>(new Set())
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { 
     isOpen: isImageModalOpen, 
@@ -257,12 +269,75 @@ const ExerciseList = () => {
     onClose: onImageModalClose 
   } = useDisclosure()
 
+  // Limpiar estados cuando cambia el workout seleccionado
+  useEffect(() => {
+    setAddedExercises(new Set())
+    setSelectedExercises([])
+    // Limpiar día seleccionado para que el usuario elija conscientemente dónde poner el nuevo workout
+    setSelectedDayForMobile(null)
+  }, [selectedWorkout?.id, setSelectedDayForMobile])
+
+  // Verificar si un ejercicio ya está añadido al día seleccionado desde el workout actual
+  const isExerciseAdded = (exerciseId: string): boolean => {
+    if (!selectedDayForMobile || !selectedWorkout) return false
+    const dayExercises = weeklyPlan[selectedDayForMobile]
+    // Verificar que el ejercicio esté añadido Y que sea del workout actual
+    return dayExercises.some(pe => 
+      pe.exercise.id === exerciseId && 
+      pe.workoutId === selectedWorkout.id
+    )
+  }
+
   const handleDragStart = (e: React.DragEvent, exercise: Exercise) => {
     e.dataTransfer.setData('application/json', JSON.stringify(exercise))
     e.dataTransfer.effectAllowed = 'copy'
   }
 
   const handleExerciseToggle = (exercise: Exercise, isSelected: boolean) => {
+    // En móvil, verificar que hay un día seleccionado
+    if (isMobile && !selectedDayForMobile && isSelected) {
+      // Mostrar toast/mensaje
+      toast.error('Selecciona primero el día de entrenamiento', {
+        duration: 3000,
+        position: 'top-center',
+        style: {
+          background: '#5D7A4F',
+          color: '#fff',
+          fontWeight: '600',
+          padding: '16px',
+          borderRadius: '12px',
+        },
+        icon: '📅',
+      })
+      return
+    }
+
+    // Si estamos en móvil y hay un día seleccionado
+    if (isMobile && selectedDayForMobile) {
+      // Si ya está añadido, no hacer nada
+      if (isExerciseAdded(exercise.id)) {
+        return
+      }
+
+      if (isSelected) {
+        addExerciseToDay(exercise, selectedDayForMobile)
+        
+        // Añadir a la lista de ejercicios añadidos temporalmente
+        setAddedExercises(prev => new Set(prev).add(exercise.id))
+        
+        // Remover del Set después de 1.5 segundos
+        setTimeout(() => {
+          setAddedExercises(prev => {
+            const newSet = new Set(prev)
+            newSet.delete(exercise.id)
+            return newSet
+          })
+        }, 1500)
+      }
+      return
+    }
+
+    // Comportamiento original para desktop o cuando no hay día seleccionado
     setSelectedExercises(prev => {
       if (isSelected) {
         return [...prev, exercise]
@@ -320,12 +395,14 @@ const ExerciseList = () => {
       </div>
       <div className="text-xs text-amulet-600 bg-amulet-50 p-3 rounded-lg border border-amulet-200">
         💡 <strong>Tip:</strong> {isMobile
-          ? 'Toca el botón + en cada ejercicio para seleccionar. Luego elige el día de entrenamiento.'
+          ? selectedDayForMobile 
+            ? 'Toca el botón + para añadir ejercicios al día seleccionado.' 
+            : 'Selecciona primero un día en el calendario semanal arriba.'
           : 'Arrastra los ejercicios directamente al día deseado.'
         } Se recomiendan de 4 a 10 ejercicios por día de entrenamiento.
       </div>
-      {/* Banner de selección cuando hay ejercicios seleccionados - Solo visible en móvil/tablet */}
-      {selectedExercises.length > 0 && (
+      {/* Banner de selección cuando hay ejercicios seleccionados - Solo visible en móvil/tablet cuando NO hay día seleccionado */}
+      {selectedExercises.length > 0 && !selectedDayForMobile && (
         <div className="bg-[#394932] text-white p-4 rounded-xl shadow-md lg:hidden">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div className="flex items-center gap-3">
@@ -370,6 +447,8 @@ const ExerciseList = () => {
             onToggle={handleExerciseToggle}
             isMobile={isMobile}
             onViewImage={handleViewImage}
+            isAdded={addedExercises.has(exercise.id)}
+            isAddedToDay={isExerciseAdded(exercise.id)}
           />
         ))}
       </div>

@@ -11,7 +11,14 @@ import Button from "@/components/common/Button";
 
 function Rutinas() {
   const [currentStep, setCurrentStep] = useState(1)
-  const { selectedWorkout, weeklyPlan } = usePlannerStore()
+  const { 
+    selectedWorkout, 
+    weeklyPlan, 
+    setSelectedWorkout, 
+    clearWeeklyPlan,
+    setLevelFilter,
+    setSelectedDayForMobile
+  } = usePlannerStore()
 
   // Función para hacer scroll al inicio cuando cambia el paso
   const handleStepChange = (newStep) => {
@@ -21,6 +28,18 @@ function Rutinas() {
       top: 0,
       behavior: 'smooth'
     })
+  }
+
+  // Función para reiniciar toda la rutina
+  const handleNewRoutine = () => {
+    // Limpiar todos los estados del planner
+    setSelectedWorkout(null)
+    clearWeeklyPlan()
+    setLevelFilter('principiante')
+    setSelectedDayForMobile(null)
+    
+    // Volver al paso 1
+    handleStepChange(1)
   }
 
   const steps = [
@@ -51,11 +70,13 @@ function Rutinas() {
   const hasExercisesInCalendar = Object.values(weeklyPlan).some(day => day.length > 0)
   
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-      <div className="lg:col-span-1">
+    <div className="space-y-6">
+      {/* En móvil/tablet: primero el calendario, luego ejercicios */}
+      <div className="lg:hidden space-y-6">
+        <WeeklyPlanner />
         <ExerciseList />
         {hasExercisesInCalendar && (
-          <div className="text-center mt-4">
+          <div className="text-center">
             <Button
               type="secundario" 
               onClick={() => handleStepChange(2)}
@@ -64,8 +85,24 @@ function Rutinas() {
           </div>
         )}
       </div>
-      <div className="lg:col-span-3">
-        <WeeklyPlanner />
+
+      {/* En desktop: layout original con columnas */}
+      <div className="hidden lg:grid lg:grid-cols-4 gap-6">
+        <div className="lg:col-span-1">
+          <ExerciseList />
+          {hasExercisesInCalendar && (
+            <div className="text-center mt-4">
+              <Button
+                type="secundario" 
+                onClick={() => handleStepChange(2)}
+                text="+ Añadir nuevo Workout"
+              />
+            </div>
+          )}
+        </div>
+        <div className="lg:col-span-3">
+          <WeeklyPlanner />
+        </div>
       </div>
     </div>
   )
@@ -158,9 +195,9 @@ function Rutinas() {
         {currentStep === 4 && (
           <Button
             type="secundario" 
-            onClick={() => handleStepChange(1)}
+            onClick={handleNewRoutine}
             variant="ghost"
-            text=" Nueva rutina"
+            text="Nueva rutina"
           />
         )}
       </div>

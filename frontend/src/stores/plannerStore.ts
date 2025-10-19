@@ -26,11 +26,13 @@ interface PlannerState {
   selectedWeek: Date
   weeklyPlan: WeeklyPlan
   levelFilter: string | null
+  selectedDayForMobile: keyof WeeklyPlan | null
   
   // Actions
   setSelectedWorkout: (workout: Workout | null) => void
   setSelectedWeek: (week: Date) => void
   setLevelFilter: (level: string | null) => void
+  setSelectedDayForMobile: (day: keyof WeeklyPlan | null) => void
   addExerciseToDay: (exercise: Exercise, day: keyof WeeklyPlan) => void
   removeExerciseFromDay: (exerciseId: string, day: keyof WeeklyPlan) => void
   clearDay: (day: keyof WeeklyPlan) => void
@@ -54,6 +56,7 @@ const usePlannerStore = create<PlannerState>((set, get) => ({
   selectedWeek: new Date(),
   weeklyPlan: initialWeeklyPlan,
   levelFilter: 'principiante',
+  selectedDayForMobile: null,
 
   // ===== ACTIONS =====
   setSelectedWorkout: (workout: Workout | null) => {
@@ -67,14 +70,21 @@ const usePlannerStore = create<PlannerState>((set, get) => ({
   setLevelFilter: (level: string | null) => {
     set({ levelFilter: level })
   },
+
+  setSelectedDayForMobile: (day: keyof WeeklyPlan | null) => {
+    set({ selectedDayForMobile: day })
+  },
 addExerciseToDay: (exercise: Exercise, day: keyof WeeklyPlan) => {
   const { selectedWorkout, weeklyPlan } = get()
   
   if (!selectedWorkout) return
 
-  // Verificar si el ejercicio ya está asignado ese día
+  // Verificar si el ejercicio del MISMO workout ya está asignado ese día
   const dayExercises = weeklyPlan[day]
-  const exerciseExists = dayExercises.find(pe => pe.exercise.id === exercise.id)
+  const exerciseExists = dayExercises.find(pe => 
+    pe.exercise.id === exercise.id && 
+    pe.workoutId === selectedWorkout.id
+  )
   
   if (exerciseExists) return
 
