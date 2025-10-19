@@ -126,16 +126,6 @@ const MobileWeekCalendar = ({ weekDates, onSelectDay, selectedDay, onRemoveExerc
                     {getWorkoutTypeLabel(workoutType)}
                   </button>
                 )}
-                
-                {/* Indicador de ejercicios */}
-                {dayData.exercises.length > 0 && (
-                  <div className="mt-1 flex items-center justify-center">
-                    <div className={`
-                      w-1.5 h-1.5 rounded-full
-                      ${isSelected ? 'bg-white' : 'bg-amulet-600'}
-                    `} />
-                  </div>
-                )}
               </div>
             )
           })}
@@ -149,6 +139,7 @@ const MobileWeekCalendar = ({ weekDates, onSelectDay, selectedDay, onRemoveExerc
         size="lg"
         placement="center"
         scrollBehavior="inside"
+        hideCloseButton={true}
       >
         <ModalContent>
           <ModalHeader className="text-amulet-950 border-b border-amulet-200">

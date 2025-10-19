@@ -225,6 +225,7 @@ const ExerciseImageModal = ({ isOpen, onClose, exercise }: ExerciseImageModalPro
       onClose={onClose} 
       size="lg"
       placement="center"
+      hideCloseButton={true}
       classNames={{
         base: "max-w-[600px]",
         body: "p-4"
