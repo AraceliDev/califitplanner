@@ -33,7 +33,7 @@ interface ExerciseState {
 }
 
 // const API_BASE_URL = 'http://localhost:8000/api'
-const API_BASE_URL = 'https://www.califitplanner.com/api';
+const API_BASE_URL = 'https://api.califitplanner.com/api'
 
 const useExerciseStore = create<ExerciseState>((set, get) => ({
     // ===== STATE =====
