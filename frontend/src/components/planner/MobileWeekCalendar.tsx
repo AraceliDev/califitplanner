@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from '@heroui/react'
-import { TrashIcon } from '@heroicons/react/24/outline'
+import { TrashIcon, PencilIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import type { DayData } from './DayColumn'
 import type { WeeklyPlan } from '@/stores/plannerStore'
 
@@ -28,7 +28,7 @@ const MobileWeekCalendar = ({ weekDates, onSelectDay, selectedDay, onRemoveExerc
       'pull': 'Pull',
       'lower-body': 'Lower',
       'upper-body': 'Upper',
-      'full-body': 'Full Body',
+      'full-body': 'Full',
       'core': 'Core',
       'mixto': 'Mixto'
     }
@@ -75,6 +75,16 @@ const MobileWeekCalendar = ({ weekDates, onSelectDay, selectedDay, onRemoveExerc
     }
   }
 
+  const handleRemoveAllExercises = () => {
+    if (modalDayData && modalDayData.exercises.length > 0) {
+      // Eliminar todos los ejercicios del día
+      modalDayData.exercises.forEach(exercise => {
+        onRemoveExercise(exercise.id, modalDayData.key)
+      })
+      setIsModalOpen(false)
+    }
+  }
+
   return (
     <>
       {/* Calendario semanal compacto */}
@@ -116,6 +126,7 @@ const MobileWeekCalendar = ({ weekDates, onSelectDay, selectedDay, onRemoveExerc
                     onClick={(e) => handleWorkoutLabelClick(e, dayData)}
                     className={`
                       text-[10px] px-2 py-0.5 rounded-full mt-2 font-medium
+                      flex flex-col items-center gap-0.5
                       ${isSelected 
                         ? 'bg-white text-amulet-800' 
                         : getWorkoutTypeColor(workoutType)
@@ -123,7 +134,8 @@ const MobileWeekCalendar = ({ weekDates, onSelectDay, selectedDay, onRemoveExerc
                       hover:scale-105 transition-transform
                     `}
                   >
-                    {getWorkoutTypeLabel(workoutType)}
+                    <span>{getWorkoutTypeLabel(workoutType)}</span>
+                    <PencilIcon className="w-3 h-3" />
                   </button>
                 )}
               </div>
@@ -139,7 +151,10 @@ const MobileWeekCalendar = ({ weekDates, onSelectDay, selectedDay, onRemoveExerc
         size="lg"
         placement="center"
         scrollBehavior="inside"
-        hideCloseButton={true}
+        hideCloseButton={false}
+        classNames={{
+          closeButton: "text-amulet-600 hover:bg-amulet-100 rounded-full p-1 mt-2 mr-2"
+        }}
       >
         <ModalContent>
           <ModalHeader className="text-amulet-950 border-b border-amulet-200">
@@ -233,10 +248,11 @@ const MobileWeekCalendar = ({ weekDates, onSelectDay, selectedDay, onRemoveExerc
           
           <ModalFooter className="border-t border-amulet-200">
             <Button
-              className="bg-amulet-600 text-white hover:bg-amulet-700"
-              onPress={() => setIsModalOpen(false)}
+              className="bg-red-600 text-white hover:bg-red-700 font-medium"
+              onPress={handleRemoveAllExercises}
+              startContent={<TrashIcon className="w-5 h-5" />}
             >
-              Cerrar
+              Eliminar Entreno Completo
             </Button>
           </ModalFooter>
         </ModalContent>
