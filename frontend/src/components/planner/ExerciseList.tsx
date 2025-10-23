@@ -438,7 +438,7 @@ const ExerciseList = () => {
         </div>
       )}
 
-      <div className="space-y-3 max-h-[600px] overflow-y-auto pr-2">
+      <div className={`space-y-3 ${isMobile ? '' : 'max-h-[600px] overflow-y-auto pr-2'}`}>
         {selectedWorkout.exercises.map((exercise) => (
           <DraggableExercise
             key={exercise.id}

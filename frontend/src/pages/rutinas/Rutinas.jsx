@@ -44,8 +44,8 @@ function Rutinas() {
 
   const steps = [
     { id: 1, title: 'Semana', description: 'Elige la semana de entrenamiento' },
-    { id: 2, title: 'Workouts', description: 'Escoge los tipos de entrenamiento' },
-    { id: 3, title: 'Planificar', description: 'Arrastra ejercicios a cada día' },
+    { id: 2, title: 'Workouts', description: 'Escoge la zona de entrenamiento' },
+    { id: 3, title: 'Planificar', description: 'Selecciona día y ejercicios' },
     { id: 4, title: 'Descargar', description: 'Descarga tu rutina completa' }
   ]
 
